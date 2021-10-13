@@ -16,7 +16,6 @@ class NamesPlacesFeature(FeatureExtractor):
     
     def _get_values(self, inputs):
         
-        inputs = "James Cameron is the person and London is a place but George also lives in Australia"
         sentences = nltk.sent_tokenize(inputs)
         for sentence in sentences:
             words = nltk.word_tokenize(sentence)
@@ -26,3 +25,5 @@ class NamesPlacesFeature(FeatureExtractor):
             for j in i:
                 if j == "NNP":
                     counter += 1
+        nnp_perc = counter/len(pos_tagged)
+        return nnp_perc 

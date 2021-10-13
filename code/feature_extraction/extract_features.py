@@ -24,7 +24,7 @@ parser.add_argument("output_file", help = "path to the output pickle file")
 parser.add_argument("-e", "--export_file", help = "create a pipeline and export to the given location", default = None)
 parser.add_argument("-i", "--import_file", help = "import an existing pipeline from the given location", default = None)
 parser.add_argument("-c", "--char_length", action = "store_true", help = "compute the number of characters in the tweet")
-parser.add_argument("-n", "--names__places", action = "store_true", help = "count number of names and places per tweet")
+parser.add_argument("-n", "--names_places", action = "store_true", help = "count number of names and places per tweet")
 args = parser.parse_args()
 
 # load data

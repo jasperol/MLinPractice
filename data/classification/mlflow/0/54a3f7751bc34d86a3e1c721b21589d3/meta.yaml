@@ -1,0 +1,15 @@
+artifact_uri: data/classification/mlflow/0/54a3f7751bc34d86a3e1c721b21589d3/artifacts
+end_time: 1634146937931
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 54a3f7751bc34d86a3e1c721b21589d3
+run_uuid: 54a3f7751bc34d86a3e1c721b21589d3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1634146933364
+status: 3
+tags: []
+user_id: Beck

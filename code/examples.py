@@ -91,7 +91,7 @@ for sentence in sentences:
     words = nltk.word_tokenize(sentence)
     pos_tagged = nltk.pos_tag(words)
     ne_chunked = nltk.ne_chunk(pos_tagged)
-    print(ne_chunked)
+    print(pos_tagged)
 
 
 # WordNet
