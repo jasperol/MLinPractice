@@ -20,13 +20,13 @@ class TweetFrequencyTest(unittest.TestCase):
     def test_input_columns(self):
         self.assertEqual(self.tweet_frequency._input_columns, [self.INPUT_COLUMN])
 
-    def test_names_places(self):
-        input_text = "John"
-        self.df[self.INPUT_COLUMN] = [input_text]
-        expected_value = 1 
+    def test_tweet_frequency(self):
+        expected_value = 0.5 
+        input_text = 'a'
 
-        result = self.names_places_feature._get_values(input_text)
+        result = self.tweet_frequency._get_values(input_text)
         self.assertEqual(result, expected_value)
+        print(result)
         
     
 if __name__ == "__main__":
