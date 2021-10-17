@@ -16,6 +16,10 @@ import pandas as pd
 
 df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
+# for the frequency of users I have to put the different frequencies in the x axis 
+# and the amount of users with these amounts in the y axis
+df["username"].value_counts().plot(kind = 'bar')
+
 df["language"].value_counts().plot(kind = 'bar')
 df["language"].value_counts().plot(kind = 'bar', logy = True)
 
@@ -91,7 +95,7 @@ for sentence in sentences:
     words = nltk.word_tokenize(sentence)
     pos_tagged = nltk.pos_tag(words)
     ne_chunked = nltk.ne_chunk(pos_tagged)
-    print(ne_chunked)
+    print(pos_tagged)
 
 
 # WordNet
