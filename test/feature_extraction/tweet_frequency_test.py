@@ -8,7 +8,6 @@ Created on Wed Oct 13 21:14:23 2021
 import unittest
 import pandas as pd
 from code.feature_extraction.tweet_frequency import TweetFrequency
-import nltk
 
 class TweetFrequencyTest(unittest.TestCase):
     
@@ -21,12 +20,12 @@ class TweetFrequencyTest(unittest.TestCase):
         self.assertEqual(self.tweet_frequency._input_columns, [self.INPUT_COLUMN])
 
     def test_tweet_frequency(self):
-        expected_value = 0.5 
-        input_text = 'a'
+        self.tweet_frequency._set_variables()
+        expected_value = 1
+        input_text = 'iampinglacson'
 
         result = self.tweet_frequency._get_values(input_text)
         self.assertEqual(result, expected_value)
-        print(result)
         
     
 if __name__ == "__main__":
