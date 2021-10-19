@@ -21,15 +21,15 @@ class NamesPlacesFeature(FeatureExtractor):
     
     def _get_values(self, inputs):
                 
-        
-        tokenizer = RegexpTokenizer(r'\w+')
-        words = tokenizer.tokenize(inputs)
-        pos_tagged = nltk.pos_tag(words)
-        counter = 0
-        for i in pos_tagged:
-            for j in i:
-                if j == "NNP":
-                    counter += 1
-        print(counter)
-        nnp_perc = counter/len(pos_tagged)
+        nnp_perc = []
+        for tweet in inputs:
+            tokenizer = RegexpTokenizer(r'\w+')
+            words = tokenizer.tokenize(tweet)
+            pos_tagged = nltk.pos_tag(words)
+            counter = 0
+            for i in pos_tagged:
+                for j in i:
+                    if j == "NNP":
+                        counter += 1
+            nnp_perc.append(counter/len(pos_tagged))
         return nnp_perc 

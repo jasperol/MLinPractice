@@ -25,9 +25,11 @@ class TweetFrequency(FeatureExtractor):
         
     def _get_values(self, inputs):
         
-        self.df = self.data_f["username"]
-        self.freq_dist = nltk.FreqDist(self.df)
-        
-        return self.freq_dist.get(inputs)
+        freq_list = []
+        for tweet in inputs:
+            self.df = self.data_f["username"]
+            self.freq_dist = nltk.FreqDist(self.df)
+            freq_list.append = self.freq_dist.get(tweet)
+        return freq_list
         
      
