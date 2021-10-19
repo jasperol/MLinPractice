@@ -16,8 +16,6 @@ df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONN
 # for the frequency of users I have to put the different frequencies in the x axis 
 # and the amount of users with these amounts in the y axis
 
-#df["username"].value_counts().plot(kind = 'bar')
-
 freq_dist = nltk.FreqDist(df["username"])
 
 different_values = []
