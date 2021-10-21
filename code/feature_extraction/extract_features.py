@@ -32,24 +32,31 @@ args = parser.parse_args()
 # load data
 df = pd.read_csv(args.input_file, quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
+
 if args.import_file is not None:
     # simply import an exisiting FeatureCollector
     with open(args.import_file, "rb") as f_in:
         feature_collector = pickle.load(f_in)
+        
 
 else:    # need to create FeatureCollector manually
-
+    
     # collect all feature extractors
     features = []
     if args.char_length:
         # character length of original tweet (without any changes)
         features.append(CharacterLength(COLUMN_TWEET))
+        print("char_length")
+
     if args.names_places:
         # amount of names and places per tweet
         features.append(NamesPlacesFeature(COLUMN_TWEET))
+        print("names_places")
     if args.tweet_frequency:
         # how many tweets posted by one person
         features.append(TweetFrequency(COLUMN_TWEET))
+        print("tweet_frequency")
+
     
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)

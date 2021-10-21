@@ -16,9 +16,6 @@ class TweetFrequency(FeatureExtractor):
     
     def __init__(self, input_column):
         super().__init__([input_column], "{0}_tweet_frequency".format(input_column))
-    
-    def _set_variables(self):
-        
         self.data_f = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
         

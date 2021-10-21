@@ -35,7 +35,7 @@ import numpy as np
 with open("data/feature_extraction/training.pickle", "rb") as f_in:
     data = pickle.load(f_in)
 
-features = data["features"]
+features = data["feature_names"]
 labels = data["labels"]
 
 plt.hist(features)

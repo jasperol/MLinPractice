@@ -20,7 +20,13 @@ class NamesPlacesFeature(FeatureExtractor):
         super().__init__([input_column], "{0}_NNP".format(input_column))
     
     def _get_values(self, inputs):
+        
+        import pandas as pd
+        import csv
+        import numpy as np
                 
+        df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
+        inputs = df["tweet"][:100]
         nnp_perc = []
         for tweet in inputs:
             tokenizer = RegexpTokenizer(r'\w+')
@@ -32,4 +38,5 @@ class NamesPlacesFeature(FeatureExtractor):
                     if j == "NNP":
                         counter += 1
             nnp_perc.append(counter/len(pos_tagged))
+        print(np.array(nnp_perc))
         return nnp_perc 
