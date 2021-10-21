@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Simple feature that extracts the number of hashtags.
+Feature that extracts the number of hashtags.
 
 Created on Thu Oct 21 11:23:21 2021
 

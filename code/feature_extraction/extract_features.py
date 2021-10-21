@@ -28,9 +28,9 @@ parser.add_argument("-e", "--export_file", help = "create a pipeline and export 
 parser.add_argument("-i", "--import_file", help = "import an existing pipeline from the given location", default = None)
 parser.add_argument("-c", "--char_length", action = "store_true", help = "compute the number of characters in the tweet")
 parser.add_argument("-w", "--weekday", action = "store_true", help = "extract the day of the week")
-parser.add_argument("-h_mc", "hashtags_most_common", action = "store_true", help = "counts how many of the most common hashtags have been used")
-parser.add_argument("h_n", "hashtags_num", action = "store_true", help = "counts the number of hashtags")
-parser.add_argument("t", "words_most_common", action = "store_true", help = "counts how many of the most common words have been used")
+parser.add_argument("-h_mc", "--hashtags_most_common", action = "store_true", help = "counts how many of the most common hashtags have been used")
+parser.add_argument("-h_n", "--hashtags_num", action = "store_true", help = "counts the number of hashtags")
+parser.add_argument("-t", "--words_most_common", action = "store_true", help = "counts how many of the most common words have been used")
 args = parser.parse_args()
 
 # load data
