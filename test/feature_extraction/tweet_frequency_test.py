@@ -5,9 +5,6 @@ Created on Wed Oct 13 21:14:23 2021
 @author: Beck
 """
 
-""" Tests the tweet frequency feature by passing a user and checking to see if
-the feature returns the correct tweet_frequency for that user """
-
 import unittest
 import pandas as pd
 from code.feature_extraction.tweet_frequency import TweetFrequency

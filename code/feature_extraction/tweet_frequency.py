@@ -5,7 +5,6 @@ Created on Wed Oct 13 21:13:59 2021
 @author: Beck
 """
 
-"""counts the amount of times that a user has posted a tweet """
 import nltk
 from code.feature_extraction.feature_extractor import FeatureExtractor
 import csv
