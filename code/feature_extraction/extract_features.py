@@ -49,9 +49,9 @@ else:    # need to create FeatureCollector manually
         # character length of original tweet (without any changes)
         features.append(CharacterLength(COLUMN_TWEET))
         features.append(DayOfTheWeek(COLUMN_DATE))
-        features.append(HashtagsMostCommon(COLUMN_TAGS))
+        features.append(HashtagsMostCommon(COLUMN_TAGS)[0])
         features.append(HashtagsCounts(COLUMN_TAGS))
-        features.append(WordsMostCommon(SUFFIX_TOKENIZED))
+        features.append(WordsMostCommon(SUFFIX_TOKENIZED)[0])
     
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)

@@ -72,7 +72,7 @@ class WordsMostCommon(FeatureExtractor):
         
         result = np.array(counts)
         
-        return result
+        return result, most_common_words
         
         
         
