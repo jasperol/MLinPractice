@@ -16,11 +16,11 @@ from nltk.tokenize import RegexpTokenizer
 
 df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
-
+#viral_tweets = df.loc[df["label"] == False]
 
 NNP_list = []
 # use a sample amount of 1000 tweets to display the distribution of high frequency NNP use
-for text in df["tweet"][:1000]:
+for text in df["tweet"][:5000]:
     tokenizer = RegexpTokenizer(r'\w+')
     words = tokenizer.tokenize(text)
     pos_tagged = nltk.pos_tag(words)
@@ -30,6 +30,7 @@ for text in df["tweet"][:1000]:
             if j == "NNP":
                 counter += 1
     NNP_list.append(counter)
+print(sum(NNP_list)/len(NNP_list))
 
 
 

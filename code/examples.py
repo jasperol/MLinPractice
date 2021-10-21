@@ -125,6 +125,8 @@ from sklearn.preprocessing import OneHotEncoder
 import numpy as np
 
 features = np.array([["morning"], ["afternoon"], ["evening"], ["night"], ["afternoon"]])
+print(features)
+print(features.shape)
 encoder = OneHotEncoder(sparse = False)
 encoder.fit(features)
 encoder.transform(features)

@@ -22,7 +22,7 @@ class TweetFrequencyTest(unittest.TestCase):
     def test_tweet_frequency(self):
         self.tweet_frequency._set_variables()
         expected_value = 1
-        input_text = 'iampinglacson'
+        input_text = ['iampinglacson']
 
         result = self.tweet_frequency._get_values(input_text)
         self.assertEqual(result, expected_value)
