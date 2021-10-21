@@ -50,6 +50,7 @@ bins = [0, 50, 100, 150, 200, 250, 300, 350, 400]
 plt.hist(pos, bins = bins)
 plt.hist(neg, bins = bins)
 
+
 ###############################################################################
 ########################    FEATURE EXTRACTION   ##############################
 ###############################################################################
@@ -95,7 +96,7 @@ for sentence in sentences:
     words = nltk.word_tokenize(sentence)
     pos_tagged = nltk.pos_tag(words)
     ne_chunked = nltk.ne_chunk(pos_tagged)
-    print(pos_tagged)
+    print(ne_chunked)
 
 
 # WordNet
@@ -197,13 +198,6 @@ sfm = SelectFromModel(rf, threshold = 0.1, prefit = True)
 embedded_transformed = sfm.transform(X)
 print("After transformation: ", embedded_transformed.shape, y.shape)
 print("Compare: ", X[0], embedded_transformed[0])
-
-
-
-
-
-
-
 
 
 
