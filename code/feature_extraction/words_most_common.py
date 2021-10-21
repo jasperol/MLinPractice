@@ -14,7 +14,7 @@ from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from code.feature_extraction.feature_extractor import FeatureExtractor
 
 # class for extracting the most common hashtags
-class HashtagsMostCommon(FeatureExtractor):
+class WordsMostCommon(FeatureExtractor):
     
     # constructor
     def __init__(self, input_column):

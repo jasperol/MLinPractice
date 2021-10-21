@@ -12,8 +12,12 @@ import argparse, csv, pickle
 import pandas as pd
 import numpy as np
 from code.feature_extraction.character_length import CharacterLength
+from code.feature_extraction.day_of_the_week import DayOfTheWeek
+from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
+from code.feature_extraction.hashtags_num import HashtagsCounts
+from code.feature_extraction.words_most_common import WordsMostCommon
 from code.feature_extraction.feature_collector import FeatureCollector
-from code.util import COLUMN_TWEET, COLUMN_LABEL
+from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, SUFFIX_TOKENIZED
 
 
 # setting up CLI
@@ -23,6 +27,10 @@ parser.add_argument("output_file", help = "path to the output pickle file")
 parser.add_argument("-e", "--export_file", help = "create a pipeline and export to the given location", default = None)
 parser.add_argument("-i", "--import_file", help = "import an existing pipeline from the given location", default = None)
 parser.add_argument("-c", "--char_length", action = "store_true", help = "compute the number of characters in the tweet")
+parser.add_argument("-w", "--weekday", action = "store_true", help = "extract the day of the week")
+parser.add_argument("-h_mc", "hashtags_most_common", action = "store_true", help = "counts how many of the most common hashtags have been used")
+parser.add_argument("h_n", "hashtags_num", action = "store_true", help = "counts the number of hashtags")
+parser.add_argument("t", "words_most_common", action = "store_true", help = "counts how many of the most common words have been used")
 args = parser.parse_args()
 
 # load data
@@ -40,6 +48,10 @@ else:    # need to create FeatureCollector manually
     if args.char_length:
         # character length of original tweet (without any changes)
         features.append(CharacterLength(COLUMN_TWEET))
+        features.append(DayOfTheWeek(COLUMN_DATE))
+        features.append(HashtagsMostCommon(COLUMN_TAGS))
+        features.append(HashtagsCounts(COLUMN_TAGS))
+        features.append(WordsMostCommon(SUFFIX_TOKENIZED))
     
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
