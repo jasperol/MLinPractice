@@ -5,6 +5,7 @@ Created on Wed Oct 13 13:15:45 2021
 @author: Beck
 """
 
+""" tests the if the number of NNPs in a tweet it correctly counted"""
 
 import unittest
 import pandas as pd

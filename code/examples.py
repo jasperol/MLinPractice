@@ -94,6 +94,7 @@ text = "John Wilkes Booth shot Abraham Lincoln. Abraham Lincoln was not shot ins
 sentences = nltk.sent_tokenize(text)
 for sentence in sentences:
     words = nltk.word_tokenize(sentence)
+    print(words)
     pos_tagged = nltk.pos_tag(words)
     ne_chunked = nltk.ne_chunk(pos_tagged)
     print(ne_chunked)
