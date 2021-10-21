@@ -75,6 +75,7 @@ else:   # manually set up a classifier
     
     classifier.fit(data["features"], data["labels"].ravel())
     log_param("dataset", "training")
+    
 
 # now classify the given data
 prediction = classifier.predict(data["features"])
