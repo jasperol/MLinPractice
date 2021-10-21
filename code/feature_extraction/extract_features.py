@@ -48,10 +48,24 @@ else:    # need to create FeatureCollector manually
     if args.char_length:
         # character length of original tweet (without any changes)
         features.append(CharacterLength(COLUMN_TWEET))
+    
+    elif args.weekday:
+        # day of the week of the tweet
         features.append(DayOfTheWeek(COLUMN_DATE))
+    
+    elif args.hashtags_most_common:
+        # most common words
         features.append(HashtagsMostCommon(COLUMN_TAGS)[0])
+        
+    elif args.hashtags_num:
+        # amount of hashtags
         features.append(HashtagsCounts(COLUMN_TAGS))
+    
+    elif args.words_most_common:
+        # most common words in the tweets
         features.append(WordsMostCommon(SUFFIX_TOKENIZED)[0])
+    
+    print(len(features))    
     
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
