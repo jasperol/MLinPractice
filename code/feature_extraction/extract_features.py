@@ -49,24 +49,22 @@ else:    # need to create FeatureCollector manually
         # character length of original tweet (without any changes)
         features.append(CharacterLength(COLUMN_TWEET))
     
-    elif args.weekday:
+    if args.weekday:
         # day of the week of the tweet
         features.append(DayOfTheWeek(COLUMN_DATE))
     
-    elif args.hashtags_most_common:
+    if args.hashtags_most_common:
         # most common words
-        features.append(HashtagsMostCommon(COLUMN_TAGS)[0])
+        features.append(HashtagsMostCommon(COLUMN_TAGS))
         
-    elif args.hashtags_num:
+    if args.hashtags_num:
         # amount of hashtags
         features.append(HashtagsCounts(COLUMN_TAGS))
     
-    elif args.words_most_common:
+    if args.words_most_common:
         # most common words in the tweets
-        features.append(WordsMostCommon(SUFFIX_TOKENIZED)[0])
-    
-    print(len(features))    
-    
+        features.append(WordsMostCommon(SUFFIX_TOKENIZED))
+       
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
     
@@ -85,6 +83,9 @@ label_array = label_array.reshape(-1, 1)
 # store the results
 results = {"features": feature_array, "labels": label_array, 
            "feature_names": feature_collector.get_feature_names()}
+
+print(results)
+
 with open(args.output_file, 'wb') as f_out:
     pickle.dump(results, f_out)
 

@@ -33,6 +33,7 @@ args = parser.parse_args()
 # load data
 with open(args.input_file, 'rb') as f_in:
     data = pickle.load(f_in)
+    print(data['features'].shape)
 
 set_tracking_uri(args.log_folder)
 
