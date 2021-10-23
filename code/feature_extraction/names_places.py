@@ -17,12 +17,15 @@ class NamesPlacesFeature(FeatureExtractor):
     def _get_values(self, inputs):
 <<<<<<< HEAD
         
+<<<<<<< HEAD
         import pandas as pd
         import csv
         import numpy as np
 =======
 <<<<<<< HEAD
         
+=======
+>>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
         sentences = nltk.sent_tokenize(inputs)
         for sentence in sentences:
             words = nltk.word_tokenize(sentence)
@@ -33,6 +36,9 @@ class NamesPlacesFeature(FeatureExtractor):
                 if j == "NNP":
                     counter += 1
         nnp_perc = counter/len(pos_tagged)
+=======
+<<<<<<< HEAD
+>>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
 =======
 >>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
                 
@@ -50,7 +56,11 @@ class NamesPlacesFeature(FeatureExtractor):
                         counter += 1
             nnp_perc.append(counter/len(pos_tagged))
 <<<<<<< HEAD
+<<<<<<< HEAD
         print(np.array(nnp_perc))
+=======
+>>>>>>> 8b14f16395cfd8030d14a8e75cf34f04adfaa676
+>>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
 =======
 >>>>>>> 8b14f16395cfd8030d14a8e75cf34f04adfaa676
 >>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc

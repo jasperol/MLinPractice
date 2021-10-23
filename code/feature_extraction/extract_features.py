@@ -48,14 +48,20 @@ else:    # need to create FeatureCollector manually
     if args.char_length:
         # character length of original tweet (without any changes)
 <<<<<<< HEAD
+<<<<<<< HEAD
         features.append(CharacterLength(COLUMN_TWEET))
         print("char_length")
 
 =======
+=======
+>>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
         features.append(CharacterLength(COLUMN_TWEET))     
     if args.sentiment:
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))
+<<<<<<< HEAD
+>>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
+=======
 >>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
     if args.names_places:
         # amount of names and places per tweet
@@ -91,4 +97,8 @@ with open(args.output_file, 'wb') as f_out:
 # export the FeatureCollector as pickle file if desired by user
 if args.export_file is not None:
     with open(args.export_file, 'wb') as f_out:
+<<<<<<< HEAD
         pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)
+=======
+        pickle.dump(feature_collector, f_out)
+>>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
