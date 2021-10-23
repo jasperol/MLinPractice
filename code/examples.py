@@ -50,6 +50,7 @@ bins = [0, 50, 100, 150, 200, 250, 300, 350, 400]
 plt.hist(pos, bins = bins)
 plt.hist(neg, bins = bins)
 
+
 ###############################################################################
 ########################    FEATURE EXTRACTION   ##############################
 ###############################################################################
@@ -96,7 +97,7 @@ for sentence in sentences:
     print(words)
     pos_tagged = nltk.pos_tag(words)
     ne_chunked = nltk.ne_chunk(pos_tagged)
-    print(pos_tagged)
+    print(ne_chunked)
 
 
 # WordNet
