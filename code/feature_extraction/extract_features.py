@@ -13,6 +13,7 @@ import pandas as pd
 import numpy as np
 from code.feature_extraction.character_length import CharacterLength
 from code.feature_extraction.names_places import NamesPlacesFeature
+from code.feature_extraction.sentiment import Sentiment
 from code.feature_extraction.tweet_frequency import TweetFrequency
 from code.feature_extraction.feature_collector import FeatureCollector
 from code.util import COLUMN_TWEET, COLUMN_LABEL
@@ -25,6 +26,7 @@ parser.add_argument("output_file", help = "path to the output pickle file")
 parser.add_argument("-e", "--export_file", help = "create a pipeline and export to the given location", default = None)
 parser.add_argument("-i", "--import_file", help = "import an existing pipeline from the given location", default = None)
 parser.add_argument("-c", "--char_length", action = "store_true", help = "compute the number of characters in the tweet")
+parser.add_argument("-s", "--sentiment", action = "store_true", help = "compute the sentiment score of the tweet")
 parser.add_argument("-n", "--names_places", action = "store_true", help = "count number of names and places per tweet")
 parser.add_argument("-f", "--tweet_frequency", action = "store_true", help = "count number of tweets by one user")
 args = parser.parse_args()
@@ -45,9 +47,16 @@ else:    # need to create FeatureCollector manually
     features = []
     if args.char_length:
         # character length of original tweet (without any changes)
+<<<<<<< HEAD
         features.append(CharacterLength(COLUMN_TWEET))
         print("char_length")
 
+=======
+        features.append(CharacterLength(COLUMN_TWEET))     
+    if args.sentiment:
+        # sentiment score of tweet between -1 to 1
+        features.append(Sentiment(COLUMN_TWEET))
+>>>>>>> 8031b51ca5d59ff8070203a199520a503ea341bc
     if args.names_places:
         # amount of names and places per tweet
         features.append(NamesPlacesFeature(COLUMN_TWEET))
@@ -82,4 +91,4 @@ with open(args.output_file, 'wb') as f_out:
 # export the FeatureCollector as pickle file if desired by user
 if args.export_file is not None:
     with open(args.export_file, 'wb') as f_out:
-        pickle.dump(feature_collector, f_out)
+        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)        pickle.dump(feature_collector, f_out)
