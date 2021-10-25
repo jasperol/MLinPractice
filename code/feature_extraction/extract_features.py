@@ -14,9 +14,13 @@ import numpy as np
 from code.feature_extraction.character_length import CharacterLength
 from code.feature_extraction.names_places import NamesPlacesFeature
 from code.feature_extraction.sentiment import Sentiment
-from code.feature_extraction.tweet_frequency import TweetFrequency
+#from code.feature_extraction.tweet_frequency import TweetFrequency
+#from code.feature_extraction.day_of_the_week import DayOfTheWeek
+#from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
+#from code.feature_extraction.hashtags_num import HashtagsCounts
+#from code.feature_extraction.words_most_common import WordsMostCommon
 from code.feature_extraction.feature_collector import FeatureCollector
-from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_USERS
+from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, SUFFIX_TOKENIZED
 
 
 # setting up CLI
@@ -29,24 +33,28 @@ parser.add_argument("-c", "--char_length", action = "store_true", help = "comput
 parser.add_argument("-s", "--sentiment", action = "store_true", help = "compute the sentiment score of the tweet")
 parser.add_argument("-n", "--names_places", action = "store_true", help = "count number of names and places per tweet")
 parser.add_argument("-f", "--tweet_frequency", action = "store_true", help = "count number of tweets by one user")
+parser.add_argument("-w", "--weekday", action = "store_true", help = "extract the day of the week")
+parser.add_argument("-h_mc", "--hashtags_most_common", action = "store_true", help = "counts how many of the most common hashtags have been used")
+parser.add_argument("-h_n", "--hashtags_num", action = "store_true", help = "counts the number of hashtags")
+parser.add_argument("-t", "--words_most_common", action = "store_true", help = "counts how many of the most common words have been used")
+
 args = parser.parse_args()
 
 # load data
 df = pd.read_csv(args.input_file, quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
-
 if args.import_file is not None:
     # simply import an exisiting FeatureCollector
     with open(args.import_file, "rb") as f_in:
         feature_collector = pickle.load(f_in)
-        
 
 else:    # need to create FeatureCollector manually
-    
+
     # collect all feature extractors
     features = []
-    #if args.char_length:
+    if args.char_length:
         # character length of original tweet (without any changes)
+<<<<<<< HEAD
 
      #   features.append(CharacterLength(COLUMN_TWEET))
 
@@ -56,16 +64,42 @@ else:    # need to create FeatureCollector manually
     if args.tweet_frequency:
         # how many tweets posted by one person
         features.append(TweetFrequency(COLUMN_USERS))
+=======
+        features.append(CharacterLength(COLUMN_TWEET))     
+>>>>>>> 2f4026f1f890ffb0387808b87ed7fef6f3bf9571
     if args.sentiment:
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))
-
-    print(len(features))
+        
+        
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
     
     # fit it on the given data set (assumed to be training data)
     feature_collector.fit(df)
+
+        
+"""
+    if args.names_places:
+        # amount of names and places per tweet
+        features.append(NamesPlacesFeature(COLUMN_TWEET))
+    if args.tweet_frequency:
+        # how many tweets posted by one person
+        features.append(TweetFrequency(COLUMN_TWEET))
+    if args.weekday:
+        # day of the week of the tweet
+        features.append(DayOfTheWeek(COLUMN_DATE))
+    if args.hashtags_most_common:
+        # most common words
+        features.append(HashtagsMostCommon(COLUMN_TAGS)[0])
+    if args.hashtags_num:
+        # amount of hashtags
+        features.append(HashtagsCounts(COLUMN_TAGS))
+    if args.words_most_common:
+        # most common words in the tweets
+        features.append(WordsMostCommon(SUFFIX_TOKENIZED)[0])
+       
+"""
 
 
 # apply the given FeatureCollector on the current data set
@@ -86,4 +120,3 @@ with open(args.output_file, 'wb') as f_out:
 if args.export_file is not None:
     with open(args.export_file, 'wb') as f_out:
         pickle.dump(feature_collector, f_out)
-

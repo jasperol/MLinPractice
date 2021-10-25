@@ -12,11 +12,29 @@ dimensionality reduction, classification, and evaluation.
 ### Design Decisions
 
 Which evaluation metrics did you use and why? 
+We used the included accuracy and cohens kappa metrics, otherwise we also used an f1_score metric 
+to get a combination of precision (how many positive classified tweets are actaully positive)
+and recall (how many true positives were caught).
+
 Which baselines did you use and why?
+-Always true
+-Always false
+
+
 
 ### Results
 
 How do the baselines perform with respect to the evaluation metrics?
+The baseline of 'always false' provides a promising result as 90% of the tweets are classified as non-viral.
+Therefore the accuracy is 90% (what percentage did I get right?), however the precision, recall and 
+f1 score will all be 0 or NaN. 
+'Always true' provides the opposite of course with 10% accuracy and precision, a perfect recall
+(all the true positives were caught) however only a 18% f1 score. 
+
+Cohens Kappa provides a universal 0 score because it adjusts the acuurcy by the probability of random
+agreement - and so as such provides probably the most 'reliable' evaluation of our classifier. 
+
+
 
 ### Interpretation
 
@@ -33,9 +51,32 @@ things (depending on what you do, that may be better structured).
 Which kind of preprocessing steps did you implement? Why are they necessary
 and/or useful down the road?
 
+- create_labels: this was crucial to implement as to label a tweet as viral or not based on our rewteet
+and like numbers. This was used pretty much in every stage of the pipeline
+- punctuation_remover: removes the punctuation
+- split_data: vital as an evaluation scheme as a way to divide up the data into traning, test and 
+validation groups. This way one can check for under and overfitting if the training data has far different 
+evaluation metric scores to 'unseen' data in the test data or completely 'virgin' data in the validation
+set
+- tokenizer: this was used in the names_places feature extraction and others
+
+
+
 ### Results
 
 Maybe show a short example what your preprocessing does.
+
+For example a sentence like 'Machine Learning is the best! I love it so much' would be preprocessed as follows: 
+1. create labels: if the likes + rewteets > 50 then it is labelled 'true' for being viral. Otherwise not it does not reach
+the threshold to be in the positive class and is labelled 'false'. This is saved in a new column in code.util as 'COLUMN_LABEL'.
+e.g. let's say our example sentence is viral. It gets the label = TRUE. This is also saved in data/preprocessing/labeled.csv
+which gets passed to the next stage:
+2. In general preprocessing, the punctuation_remover and tokenizer files are implemented such that any punctuation points are 
+replaced with an empty space " ". This is resaved in "COLUMN_TWEET". 
+e.g. "Machine Learning is the best I love it so much"
+Then in tokenize, the tweet is borken down into the individual words:
+So our sentence becomes e.g. "Machine" "Learning" "is" "the" and so forth. 
+3. In split_data as a final step, the data gets seperated into training, test and vailidation sets. 
 
 ### Interpretation
 
@@ -49,6 +90,16 @@ up to you.
 ### Design Decisions
 
 Which features did you implement? What's their motivation and how are they computed?
+We implemented: 
+- sentiment.py
+- names_places.py 
+- day_of_the_week
+- hastags_most_common
+- hastags_num
+- tweet_frequency
+- words_most_common
+
+-char_length was there to begin with
 
 ### Results
 
