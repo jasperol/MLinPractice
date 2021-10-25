@@ -6,6 +6,8 @@ Created on Wed Oct 13 13:17:39 2021
 """
 
 import nltk
+import numpy as np
+from nltk.tokenize import RegexpTokenizer
 from code.feature_extraction.feature_extractor import FeatureExtractor
 
 class NamesPlacesFeature(FeatureExtractor):
@@ -27,8 +29,8 @@ class NamesPlacesFeature(FeatureExtractor):
                     if j == "NNP":
                         counter += 1
             nnp_perc.append(counter/len(pos_tagged))
-            
-        print(type(nnp_perc))
+
+        cor_shape = np.array(nnp_perc)
+        cor_shape = cor_shape.reshape(-1,1)
         
-        return nnp_perc 
-    
+        return cor_shape

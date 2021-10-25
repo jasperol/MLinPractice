@@ -7,6 +7,7 @@ Created on Wed Oct 13 21:14:23 2021
 
 import unittest
 import pandas as pd
+import csv
 from code.feature_extraction.tweet_frequency import TweetFrequency
 
 class TweetFrequencyTest(unittest.TestCase):
@@ -20,9 +21,9 @@ class TweetFrequencyTest(unittest.TestCase):
         self.assertEqual(self.tweet_frequency._input_columns, [self.INPUT_COLUMN])
 
     def test_tweet_frequency(self):
-        self.tweet_frequency._set_variables()
-        expected_value = 1
-        input_text = ['iampinglacson']
+        expected_value = [1]
+        self.data_f = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
+        input_text = self.data_f["username"]
 
         result = self.tweet_frequency._get_values(input_text)
         self.assertEqual(result, expected_value)

@@ -12,7 +12,7 @@ import argparse, csv, pickle
 import pandas as pd
 import numpy as np
 from code.feature_extraction.character_length import CharacterLength
-#from code.feature_extraction.names_places import NamesPlacesFeature
+from code.feature_extraction.names_places import NamesPlacesFeature
 from code.feature_extraction.sentiment import Sentiment
 #from code.feature_extraction.tweet_frequency import TweetFrequency
 #from code.feature_extraction.day_of_the_week import DayOfTheWeek
@@ -41,7 +41,7 @@ parser.add_argument("-t", "--words_most_common", action = "store_true", help = "
 args = parser.parse_args()
 
 # load data
-df = pd.read_csv(args.input_file, quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n" )
+df = pd.read_csv(args.input_file, quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
 if args.import_file is not None:
     # simply import an exisiting FeatureCollector

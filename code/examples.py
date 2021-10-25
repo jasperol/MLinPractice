@@ -35,7 +35,8 @@ import numpy as np
 with open("data/feature_extraction/training.pickle", "rb") as f_in:
     data = pickle.load(f_in)
 
-features = data["features"]
+features = data["feature_names"]
+print(features)
 labels = data["labels"]
 
 plt.hist(features)
@@ -49,7 +50,6 @@ bins = [0, 50, 100, 150, 200, 250, 300, 350, 400]
 
 plt.hist(pos, bins = bins)
 plt.hist(neg, bins = bins)
-
 
 ###############################################################################
 ########################    FEATURE EXTRACTION   ##############################
@@ -97,7 +97,7 @@ for sentence in sentences:
     print(words)
     pos_tagged = nltk.pos_tag(words)
     ne_chunked = nltk.ne_chunk(pos_tagged)
-    print(ne_chunked)
+    print(pos_tagged)
 
 
 # WordNet
@@ -201,6 +201,13 @@ sfm = SelectFromModel(rf, threshold = 0.1, prefit = True)
 embedded_transformed = sfm.transform(X)
 print("After transformation: ", embedded_transformed.shape, y.shape)
 print("Compare: ", X[0], embedded_transformed[0])
+
+
+
+
+
+
+
 
 
 

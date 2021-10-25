@@ -53,4 +53,5 @@ class FeatureCollector(FeatureExtractor):
         feature_names = []
         for feature in self._features:
             feature_names.append(feature.get_feature_name())
+        print(feature_names)
         return feature_names
