@@ -16,7 +16,7 @@ from code.feature_extraction.names_places import NamesPlacesFeature
 from code.feature_extraction.sentiment import Sentiment
 from code.feature_extraction.tweet_frequency import TweetFrequency
 from code.feature_extraction.feature_collector import FeatureCollector
-from code.util import COLUMN_TWEET, COLUMN_LABEL
+from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_USERS
 
 
 # setting up CLI
@@ -45,16 +45,11 @@ else:    # need to create FeatureCollector manually
     
     # collect all feature extractors
     features = []
-    if args.char_length:
+    #if args.char_length:
         # character length of original tweet (without any changes)
 
-        features.append(CharacterLength(COLUMN_TWEET))
-        print("char_length")
-
-        features.append(CharacterLength(COLUMN_TWEET))     
-    if args.sentiment:
-        # sentiment score of tweet between -1 to 1
-        features.append(Sentiment(COLUMN_TWEET))
+     #   features.append(CharacterLength(COLUMN_TWEET))
+     #   print("char_length")
 
     if args.names_places:
         # amount of names and places per tweet
@@ -62,10 +57,14 @@ else:    # need to create FeatureCollector manually
         print("names_places")
     if args.tweet_frequency:
         # how many tweets posted by one person
-        features.append(TweetFrequency(COLUMN_TWEET))
+        features.append(TweetFrequency(COLUMN_USERS))
         print("tweet_frequency")
+        
+    if args.sentiment:
+        # sentiment score of tweet between -1 to 1
+        features.append(Sentiment(COLUMN_TWEET))
 
-    
+    print(len(features))
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
     

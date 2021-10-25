@@ -23,6 +23,9 @@ class CharacterLength(FeatureExtractor):
     # compute the word length based on the inputs
     def _get_values(self, inputs):
         
+        
+        #What is Bigrams feature supposed to return???
+        
         import pandas as pd
         import csv
                 

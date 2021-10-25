@@ -6,6 +6,7 @@ Created on Wed Oct 13 13:17:39 2021
 """
 
 import nltk
+import numpy as np
 from nltk.tokenize import RegexpTokenizer
 from code.feature_extraction.feature_extractor import FeatureExtractor
 
@@ -17,13 +18,6 @@ class NamesPlacesFeature(FeatureExtractor):
     
     def _get_values(self, inputs):
 
-        
-        import numpy as np
-        import csv
-        import pandas as pd
-                
-        df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
-        inputs = df["tweet"][:100]
         nnp_perc = []
         for tweet in inputs:
             tokenizer = RegexpTokenizer(r'\w+')
@@ -36,6 +30,7 @@ class NamesPlacesFeature(FeatureExtractor):
                         counter += 1
             nnp_perc.append(counter/len(pos_tagged))
 
-        print(np.array(nnp_perc))
-
-        return nnp_perc 
+        cor_shape = np.array(nnp_perc)
+        cor_shape = cor_shape.reshape(-1,1)
+        
+        return cor_shape
