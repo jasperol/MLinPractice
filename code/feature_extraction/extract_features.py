@@ -49,17 +49,13 @@ else:    # need to create FeatureCollector manually
         # character length of original tweet (without any changes)
 
      #   features.append(CharacterLength(COLUMN_TWEET))
-     #   print("char_length")
 
     if args.names_places:
         # amount of names and places per tweet
         features.append(NamesPlacesFeature(COLUMN_TWEET))
-        print("names_places")
     if args.tweet_frequency:
         # how many tweets posted by one person
         features.append(TweetFrequency(COLUMN_USERS))
-        print("tweet_frequency")
-        
     if args.sentiment:
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))

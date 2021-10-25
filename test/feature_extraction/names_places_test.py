@@ -8,6 +8,8 @@ Created on Wed Oct 13 13:15:45 2021
 
 import unittest
 import pandas as pd
+import csv
+import numpy as np
 from code.feature_extraction.names_places import NamesPlacesFeature
 
 class NamesPlacesFeatureTest(unittest.TestCase):
@@ -21,12 +23,14 @@ class NamesPlacesFeatureTest(unittest.TestCase):
         self.assertEqual(self.names_places_feature._input_columns, [self.INPUT_COLUMN])
 
     def test_names_places(self):
-        input_text = ["John"]
+        df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
+        input_text = df[:100]
         self.df[self.INPUT_COLUMN] = [input_text]
-        expected_value = [1.0] 
+        expected_value = 0.5
 
         result = self.names_places_feature._get_values(input_text)
-        self.assertEqual(result, expected_value)
+        print(result[:10])
+        self.assertEqual(result[2], expected_value)
         
     
 if __name__ == "__main__":

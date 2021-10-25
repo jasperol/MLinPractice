@@ -22,15 +22,7 @@ class CharacterLength(FeatureExtractor):
     
     # compute the word length based on the inputs
     def _get_values(self, inputs):
-        
-        
-        #What is Bigrams feature supposed to return???
-        
-        import pandas as pd
-        import csv
-                
-        df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
-        inputs = df
+                       
         
         result = np.array(inputs[0].str.len())
         result = result.reshape(-1,1)

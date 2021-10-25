@@ -23,10 +23,11 @@ class TweetFrequencyTest(unittest.TestCase):
     def test_tweet_frequency(self):
         expected_value = [1]
         self.data_f = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
-        input_text = self.data_f["username"]
+        input_text = self.data_f[:10000]
 
         result = self.tweet_frequency._get_values(input_text)
-        self.assertEqual(result, expected_value)
+        print(max(result[:10000]))
+        self.assertEqual(result[0], expected_value)
         
     
 if __name__ == "__main__":

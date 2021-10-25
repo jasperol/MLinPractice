@@ -9,6 +9,8 @@ import nltk
 import numpy as np
 from nltk.tokenize import RegexpTokenizer
 from code.feature_extraction.feature_extractor import FeatureExtractor
+from code.util import COLUMN_TWEET
+
 
 class NamesPlacesFeature(FeatureExtractor):
     
@@ -19,7 +21,7 @@ class NamesPlacesFeature(FeatureExtractor):
     def _get_values(self, inputs):
 
         nnp_perc = []
-        for tweet in inputs:
+        for tweet in inputs[0]:
             tokenizer = RegexpTokenizer(r'\w+')
             words = tokenizer.tokenize(tweet)
             pos_tagged = nltk.pos_tag(words)
@@ -32,5 +34,6 @@ class NamesPlacesFeature(FeatureExtractor):
 
         cor_shape = np.array(nnp_perc)
         cor_shape = cor_shape.reshape(-1,1)
+        print(cor_shape[:10])
         
         return cor_shape
