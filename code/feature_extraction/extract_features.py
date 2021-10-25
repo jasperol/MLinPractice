@@ -12,13 +12,13 @@ import argparse, csv, pickle
 import pandas as pd
 import numpy as np
 from code.feature_extraction.character_length import CharacterLength
-rom code.feature_extraction.names_places import NamesPlacesFeature
+#from code.feature_extraction.names_places import NamesPlacesFeature
 from code.feature_extraction.sentiment import Sentiment
-from code.feature_extraction.tweet_frequency import TweetFrequency
-from code.feature_extraction.day_of_the_week import DayOfTheWeek
-from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
-from code.feature_extraction.hashtags_num import HashtagsCounts
-from code.feature_extraction.words_most_common import WordsMostCommon
+#from code.feature_extraction.tweet_frequency import TweetFrequency
+#from code.feature_extraction.day_of_the_week import DayOfTheWeek
+#from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
+#from code.feature_extraction.hashtags_num import HashtagsCounts
+#from code.feature_extraction.words_most_common import WordsMostCommon
 from code.feature_extraction.feature_collector import FeatureCollector
 from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, SUFFIX_TOKENIZED
 
@@ -36,11 +36,12 @@ parser.add_argument("-f", "--tweet_frequency", action = "store_true", help = "co
 parser.add_argument("-w", "--weekday", action = "store_true", help = "extract the day of the week")
 parser.add_argument("-h_mc", "--hashtags_most_common", action = "store_true", help = "counts how many of the most common hashtags have been used")
 parser.add_argument("-h_n", "--hashtags_num", action = "store_true", help = "counts the number of hashtags")
-parser.add_argument("-t", "--words_most_common",
+parser.add_argument("-t", "--words_most_common", action = "store_true", help = "counts how many of the most common words have been used")
+
 args = parser.parse_args()
 
 # load data
-df = pd.read_csv(args.input_file, quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
+df = pd.read_csv(args.input_file, quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n" )
 
 if args.import_file is not None:
     # simply import an exisiting FeatureCollector
@@ -57,6 +58,16 @@ else:    # need to create FeatureCollector manually
     if args.sentiment:
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))
+        
+        
+    # create overall FeatureCollector
+    feature_collector = FeatureCollector(features)
+    
+    # fit it on the given data set (assumed to be training data)
+    feature_collector.fit(df)
+
+        
+"""
     if args.names_places:
         # amount of names and places per tweet
         features.append(NamesPlacesFeature(COLUMN_TWEET))
@@ -76,11 +87,7 @@ else:    # need to create FeatureCollector manually
         # most common words in the tweets
         features.append(WordsMostCommon(SUFFIX_TOKENIZED)[0])
        
-    # create overall FeatureCollector
-    feature_collector = FeatureCollector(features)
-    
-    # fit it on the given data set (assumed to be training data)
-    feature_collector.fit(df)
+"""
 
 
 # apply the given FeatureCollector on the current data set
