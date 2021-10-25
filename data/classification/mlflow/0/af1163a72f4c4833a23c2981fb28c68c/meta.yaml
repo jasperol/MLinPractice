@@ -1,0 +1,15 @@
+artifact_uri: data/classification/mlflow/0/af1163a72f4c4833a23c2981fb28c68c/artifacts
+end_time: 1635155961005
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: af1163a72f4c4833a23c2981fb28c68c
+run_uuid: af1163a72f4c4833a23c2981fb28c68c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1635155958067
+status: 3
+tags: []
+user_id: jch

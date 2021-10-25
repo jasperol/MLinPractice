@@ -10,8 +10,9 @@ Created on Wed Sep 29 14:49:25 2021
 
 import argparse, pickle
 import pandas as pd
+from datetime import datetime
 from sklearn.pipeline import make_pipeline
-from scripts.util import COLUMN_TWEET
+from scripts.util import COLUMN_TWEET, COLUMN_DATE, COLUMN_TAGS
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Application")
@@ -42,6 +43,8 @@ print("")
 while True:
     # ask user for input
     tweet = input("Please type in your tweet (type 'quit' to quit the program): ")
+    date = str(input("Please enter the current date(yyyy-mm-dd): "))
+    tags = input("Please type in your hashtags (type 'hashtag'): ")
     
     # terminate if necessary
     if tweet == "quit":
@@ -51,6 +54,8 @@ while True:
     # if not terminated: create pandas DataFrame and put it through the pipeline
     df = pd.DataFrame()
     df[COLUMN_TWEET] = [tweet]
+    df[COLUMN_DATE] = [date]
+    df[COLUMN_TAGS] = [tags]
     
     prediction = pipeline.predict(df)
     confidence = pipeline.predict_proba(df)
