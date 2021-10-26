@@ -34,7 +34,7 @@ from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLU
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Feature Extraction")
-parser.add_argument("input_file", help = "path to the input csv file")
+parser.add_argument("input_file", help = "path to       the input csv file")
 parser.add_argument("output_file", help = "path to the output pickle file")
 parser.add_argument("-e", "--export_file", help = "create a pipeline and export to the given location", default = None)
 parser.add_argument("-i", "--import_file", help = "import an existing pipeline from the given location", default = None)
