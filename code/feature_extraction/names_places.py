@@ -9,7 +9,6 @@ import nltk
 import numpy as np
 from nltk.tokenize import RegexpTokenizer
 from code.feature_extraction.feature_extractor import FeatureExtractor
-from code.util import COLUMN_TWEET
 
 
 class NamesPlacesFeature(FeatureExtractor):
@@ -21,8 +20,9 @@ class NamesPlacesFeature(FeatureExtractor):
     def _get_values(self, inputs):
 
         nnp_perc = []
+        tokenizer = RegexpTokenizer(r'\w+')
+
         for tweet in inputs[0]:
-            tokenizer = RegexpTokenizer(r'\w+')
             words = tokenizer.tokenize(tweet)
             pos_tagged = nltk.pos_tag(words)
             counter = 0
