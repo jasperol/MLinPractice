@@ -33,7 +33,5 @@ class NamesPlacesFeature(FeatureExtractor):
             nnp_perc.append(counter/len(pos_tagged))
 
         cor_shape = np.array(nnp_perc)
-        cor_shape = cor_shape.reshape(-1,1)
-        print(cor_shape[:10])
-        
+        cor_shape = cor_shape.reshape(-1,1)        
         return cor_shape

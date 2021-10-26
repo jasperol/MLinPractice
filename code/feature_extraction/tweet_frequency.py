@@ -21,8 +21,8 @@ class TweetFrequency(FeatureExtractor):
         
         
         freq_list = []
-        for tweet in inputs["username"]:
-            freq_dist = nltk.FreqDist(inputs["username"])
+        for tweet in inputs[0]:
+            freq_dist = nltk.FreqDist(inputs[0])
             freq_list.append(freq_dist.get(tweet))
         cor_shape = np.array(freq_list)
         cor_shape = cor_shape.reshape(-1, 1)
