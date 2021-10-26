@@ -24,26 +24,23 @@ class HashtagsMostCommon(FeatureExtractor):
     def _get_values(self, inputs):
         
         # pre-processing
-        hasch = inputs[["hashtags", "label"]]
-        viral_tweets = hasch.loc[(hasch.label == True)]
-        haschis = viral_tweets["hashtags"]
-
-        hashtags = []
-        
+        hasch = inputs[0]
+        haschis = []
+   
         # extract hashtags
-        for h in haschis:
+        for h in hasch:
             if len(h) > 2:
                 tags = h.split("'")
                 words = [t for t in tags if t.isalnum()]
-                hashtags.append(words)
-        
+                haschis.append(words)
+             
         # combine tags in a flat list
-        flat_hasch = list(itertools.chain(*hashtags))
+        flat_hasch = list(itertools.chain(*haschis))
         
         # extract most common tags
         freq = nltk.FreqDist(flat_hasch)
-        most_common_tags = freq.most_common(20)
-        
+        most_common_tags = freq.most_common(50)
+            
         # check for each tweet how many of the most common hashtags are included
         counts = []
 
@@ -58,8 +55,9 @@ class HashtagsMostCommon(FeatureExtractor):
                     if any(w in tag for tag in most_common_tags):
                         counter += 1
     
-        counts.append(counter)
+            counts.append(counter)
         
         result = np.array(counts)
-        
-        return result, most_common_tags
+        result = result.reshape(-1,1)
+
+        return result

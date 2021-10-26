@@ -29,12 +29,12 @@ class WordsMostCommon(FeatureExtractor):
             return new
         
         # pre-processing
-        tweets_and_labels = inputs[["tweet_tokenized", "label"]]
-        viral_tweets = inputs.loc[(tweets_and_labels.label == True)]
-        tweets_column = viral_tweets["tweet_tokenized"]
+        tweets = inputs[0]
+        #viral_tweets = inputs.loc[(tweets_and_labels.label == True)]
+        #tweets_column = viral_tweets["tweet_tokenized"]
         
         # concatenate all tweets into one text
-        text = ' '.join(tweet for tweet in tweets_column)
+        text = ' '.join(tweet for tweet in tweets)
         
         # tokenize text
         token_list = list(text.split(","))
@@ -55,7 +55,6 @@ class WordsMostCommon(FeatureExtractor):
         most_common_words = freq.most_common(50)
         
         # check for each tweet how many of the most common words are included
-        tweets = inputs["tweet_tokenized"]
         counts = []
 
         for t in tweets:
@@ -71,8 +70,9 @@ class WordsMostCommon(FeatureExtractor):
             counts.append(counter)
         
         result = np.array(counts)
+        result = result.reshape(-1,1)
         
-        return result, most_common_words
+        return result
         
         
         
