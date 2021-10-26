@@ -11,7 +11,6 @@ Created on Wed Sep 29 13:33:37 2021
 import argparse, pickle
 from sklearn.feature_selection import SelectKBest, mutual_info_classif
 
-
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Dimensionality reduction")
 parser.add_argument("input_file", help = "path to the input pickle file")
