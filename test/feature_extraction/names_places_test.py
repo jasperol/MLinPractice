@@ -24,7 +24,7 @@ class NamesPlacesFeatureTest(unittest.TestCase):
 
     def test_names_places(self):
         df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
-        input_text = df[:10000]
+        input_text = df["tweet"]
         self.df[self.INPUT_COLUMN] = [input_text]
         expected_value = 0.5
 

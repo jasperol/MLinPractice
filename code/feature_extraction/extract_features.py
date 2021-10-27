@@ -15,19 +15,12 @@ from code.feature_extraction.character_length import CharacterLength
 from code.feature_extraction.names_places import NamesPlacesFeature
 from code.feature_extraction.sentiment import Sentiment
 from code.feature_extraction.tweet_frequency import TweetFrequency
-#from code.feature_extraction.day_of_the_week import DayOfTheWeek
-#from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
-#from code.feature_extraction.hashtags_num import HashtagsCounts
-#from code.feature_extraction.words_most_common import WordsMostCommon
-from code.feature_extraction.feature_collector import FeatureCollector
-from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, SUFFIX_TOKENIZED, COLUMN_USERS
-
 from code.feature_extraction.day_of_the_week import DayOfTheWeek
 from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
 from code.feature_extraction.hashtags_num import HashtagsCounts
 from code.feature_extraction.words_most_common import WordsMostCommon
 from code.feature_extraction.feature_collector import FeatureCollector
-from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS, SUFFIX_TOKENIZED
+from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, SUFFIX_TOKENIZED, COLUMN_USERS
 
 
 # setting up CLI

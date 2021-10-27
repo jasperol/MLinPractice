@@ -12,6 +12,7 @@ dimensionality reduction, classification, and evaluation.
 ### Design Decisions
 
 Which evaluation metrics did you use and why? 
+
 We used the included accuracy and cohens kappa metrics, otherwise we also used an f1_score metric 
 to get a combination of precision (how many positive classified tweets are actaully positive)
 and recall (how many true positives were caught).
@@ -24,7 +25,6 @@ Which baselines did you use and why?
 
 ### Results
 
-How do the baselines perform with respect to the evaluation metrics?
 The baseline of 'always false' provides a promising result as 90% of the tweets are classified as non-viral.
 Therefore the accuracy is 90% (what percentage did I get right?), however the precision, recall and 
 f1 score will all be 0 or NaN. 
@@ -35,16 +35,12 @@ Cohens Kappa provides a universal 0 score because it adjusts the acuurcy by the 
 agreement - and so as such provides probably the most 'reliable' evaluation of our classifier. 
 
 
-
 ### Interpretation
 
 Is there anything we can learn from these results?
 
 ## Preprocessing
 
-I'm following the "Design Decisions - Results - Interpretation" structure here,
-but you can also just use one subheading per preprocessing step to organize
-things (depending on what you do, that may be better structured).
 
 ### Design Decisions
 
@@ -58,7 +54,7 @@ and like numbers. This was used pretty much in every stage of the pipeline
 validation groups. This way one can check for under and overfitting if the training data has far different 
 evaluation metric scores to 'unseen' data in the test data or completely 'virgin' data in the validation
 set
-- tokenizer: this was used in the names_places feature extraction and others
+- tokenizer: this can be used in feature extraction 
 
 
 
@@ -78,9 +74,6 @@ Then in tokenize, the tweet is borken down into the individual words:
 So our sentence becomes e.g. "Machine" "Learning" "is" "the" and so forth. 
 3. In split_data as a final step, the data gets seperated into training, test and vailidation sets. 
 
-### Interpretation
-
-Probably, no real interpretation possible, so feel free to leave this section out.
 
 ## Feature Extraction
 
@@ -93,17 +86,21 @@ Which features did you implement? What's their motivation and how are they compu
 We implemented: 
 - sentiment.py
 - names_places.py 
+        This aims to count the number of NNPs (Proper Nouns) in each tweet, it implemented using the NER 
+        functions which are supplied in the nltk package.
 - day_of_the_week
 - hastags_most_common
 - hastags_num
 - tweet_frequency
+        This feature returns the amount of times that a certain user has posted a tweet, it is implemented by using a 
+        predefined function from the nltk package.
 - words_most_common
 
 -char_length was there to begin with
 
 ### Results
 
-Can you say something about how the feature values are distributed? Maybe show some plots?
+Feature value distributions can be found in the plot_images and feature_plots folder.
 
 ### Interpretation
 
