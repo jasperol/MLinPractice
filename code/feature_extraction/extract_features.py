@@ -14,11 +14,11 @@ import numpy as np
 from code.feature_extraction.character_length import CharacterLength
 from code.feature_extraction.names_places import NamesPlacesFeature
 from code.feature_extraction.sentiment import Sentiment
-#from code.feature_extraction.tweet_frequency import TweetFrequency
-#from code.feature_extraction.day_of_the_week import DayOfTheWeek
-#from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
-#from code.feature_extraction.hashtags_num import HashtagsCounts
-#from code.feature_extraction.words_most_common import WordsMostCommon
+from code.feature_extraction.tweet_frequency import TweetFrequency
+from code.feature_extraction.day_of_the_week import DayOfTheWeek
+from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
+from code.feature_extraction.hashtags_num import HashtagsCounts
+from code.feature_extraction.words_most_common import WordsMostCommon
 from code.feature_extraction.feature_collector import FeatureCollector
 from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, SUFFIX_TOKENIZED
 
@@ -58,25 +58,16 @@ else:    # need to create FeatureCollector manually
     if args.sentiment:
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))
-        
-        
-    # create overall FeatureCollector
-    feature_collector = FeatureCollector(features)
-    
-    # fit it on the given data set (assumed to be training data)
-    feature_collector.fit(df)
-
-        
-"""
-    if args.names_places:
-        # amount of names and places per tweet
-        features.append(NamesPlacesFeature(COLUMN_TWEET))
     if args.tweet_frequency:
-        # how many tweets posted by one person
-        features.append(TweetFrequency(COLUMN_TWEET))
+         # how many tweets posted by one person
+         features.append(TweetFrequency(COLUMN_TWEET))
     if args.weekday:
         # day of the week of the tweet
-        features.append(DayOfTheWeek(COLUMN_DATE))
+        features.append(DayOfTheWeek(COLUMN_DATE))  
+           
+    if args.names_places:
+        # amount of names and places per tweet
+        features.append(NamesPlacesFeature(COLUMN_TWEET))   
     if args.hashtags_most_common:
         # most common words
         features.append(HashtagsMostCommon(COLUMN_TAGS)[0])
@@ -87,8 +78,12 @@ else:    # need to create FeatureCollector manually
         # most common words in the tweets
         features.append(WordsMostCommon(SUFFIX_TOKENIZED)[0])
        
-"""
-
+ # create overall FeatureCollector
+    feature_collector = FeatureCollector(features)
+    
+    # fit it on the given data set (assumed to be training data)
+    feature_collector.fit(df)
+             
 
 # apply the given FeatureCollector on the current data set
 # maps the pandas DataFrame to an numpy array
