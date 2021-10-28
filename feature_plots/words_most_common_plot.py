@@ -10,7 +10,7 @@ Created on Thu Oct 21 15:23:47 2021
 import pandas as pd
 import csv
 import matplotlib.pyplot as plt
-from scripts.feature_extraction.words_most_common import WordsMostCommon
+from code.feature_extraction.words_most_common import WordsMostCommon
 
 # load the data
 df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")

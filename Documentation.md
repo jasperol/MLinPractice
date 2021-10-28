@@ -89,6 +89,8 @@ We implemented:
         This aims to count the number of NNPs (Proper Nouns) in each tweet, it implemented using the NER 
         functions which are supplied in the nltk package.
 - day_of_the_week
+        This feature is extracted from the date column and assigns numerical values for each day of the week. The idea is to
+        check if the day of the week decides over the virality of the tweet.
 - hastags_most_common
 - hastags_num
 - tweet_frequency
