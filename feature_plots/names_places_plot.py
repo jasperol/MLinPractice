@@ -19,7 +19,7 @@ df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONN
 #viral_tweets = df.loc[df["label"] == False]
 
 NNP_list = []
-# use a sample amount of 1000 tweets to display the distribution of high frequency NNP use
+# use a sample amount of 5000 tweets to display the distribution of high frequency NNP use
 for text in df["tweet"][:5000]:
     tokenizer = RegexpTokenizer(r'\w+')
     words = tokenizer.tokenize(text)
