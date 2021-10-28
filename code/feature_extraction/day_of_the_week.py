@@ -25,19 +25,21 @@ class DayOfTheWeek(FeatureExtractor):
     def _get_values(self, inputs):
         
         # further pre-processing
-        dates = inputs.filter(['date','column_label'], axis=1)
+        inputs = np.array(inputs).reshape(-1,1)
+        dates = pd.DataFrame(inputs)
+        dates.rename(columns={ dates.columns[0]: "date" }, inplace = True)
         
         # add columns for weekdays
         # for numerical values
-        dates.insert(2, 'weekday_num', value=np.zeros(shape=(len(dates), 1), dtype=int))
+        dates.insert(1, 'weekday_num', value=np.zeros(shape=(len(dates), 1), dtype=int))
         
         # for days as words
-        dates.insert(3, 'weekday_alph', value=np.zeros(shape=(len(dates), 1), dtype=int))
-        
+        dates.insert(2, 'weekday_alph', value=np.zeros(shape=(len(dates), 1), dtype=int))
+                  
         # sort and re-index
         dates_sorted = dates.sort_values(by='date', ascending=False)
         dates_newIdx = dates_sorted.reset_index(drop=True)
-        
+               
         # store weekday values in array, extract values, and add to dataframe
         dates_arr = np.array(dates_newIdx['date'])
         dates_list = []
@@ -73,5 +75,7 @@ class DayOfTheWeek(FeatureExtractor):
         # fit and transform encoder on data
         onehot_week = np.array(encoder.fit_transform(days_new))
         
-        return onehot_week    
+        result = onehot_week
+        
+        return result    
             

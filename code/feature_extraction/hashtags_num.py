@@ -20,7 +20,7 @@ class HashtagsCounts(FeatureExtractor):
         
     def _get_values(self, inputs):
         
-        hasch = inputs['hashtags']
+        hasch = inputs[0]
         counts = []
         hashtags = []
         
@@ -36,5 +36,6 @@ class HashtagsCounts(FeatureExtractor):
                 counts.append(0)
         
         result = np.array(counts)
+        result = result.reshape(-1,1)
         
         return result

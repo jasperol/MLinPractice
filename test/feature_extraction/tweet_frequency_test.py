@@ -26,7 +26,8 @@ class TweetFrequencyTest(unittest.TestCase):
         input_text = self.data_f["username"]
 
         result = self.tweet_frequency._get_values(input_text)
-        self.assertEqual(result, expected_value)
+        print(max(result))
+        self.assertEqual(result[0], expected_value)
         
     
 if __name__ == "__main__":

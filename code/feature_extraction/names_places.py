@@ -9,7 +9,6 @@ import nltk
 import numpy as np
 from nltk.tokenize import RegexpTokenizer
 from code.feature_extraction.feature_extractor import FeatureExtractor
-#from code.util import COLUMN_TWEET
 
 class NamesPlacesFeature(FeatureExtractor):
     
@@ -18,20 +17,30 @@ class NamesPlacesFeature(FeatureExtractor):
     
     def _get_values(self, inputs):
 
-        nnp_perc = []     
+    #    nnp_perc = []     
         
+
+
+        import pandas as pd
+        import csv
+        import numpy as np
+
+        df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
+        input_text = df["tweet"][:1000]      
+        
+        nnp_perc = []
         tokenizer = RegexpTokenizer(r'\w+')
-        for tweet in inputs[0]:
+
+        for tweet in input_text:
             words = tokenizer.tokenize(tweet)
             pos_tagged = nltk.pos_tag(words)
-            counter = 0
-            for i in pos_tagged:
-                for j in i:
-                    if j == "NNP":
-                        counter += 1
-            nnp_perc.append(counter/len(pos_tagged))
-
+            my_dict = dict(pos_tagged)
+            nnp_perc.append(sum(value == "NNP" for value in my_dict.values())/len(pos_tagged))
+            
         cor_shape = np.array(nnp_perc)
-        cor_shape = cor_shape.reshape(-1,1)
+        cor_shape = cor_shape.reshape(-1,1)     
+        
+        print(cor_shape)
+
         
         return cor_shape

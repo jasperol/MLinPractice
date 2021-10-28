@@ -13,20 +13,31 @@ import pandas as pd
 
 class TweetFrequency(FeatureExtractor):
     
+    
     def __init__(self, input_column):
         super().__init__([input_column], "{0}_tweet_frequency".format(input_column))
         self.data_f = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
-    def _get_values(self, inputs):
         
+        
+    def _get_values(self, inputs):
+
         freq_list = []
-        for tweet in inputs:
-            self.df = self.data_f["username"]
-            self.freq_dist = nltk.FreqDist(self.df)
-            freq_list.append(self.freq_dist.get(tweet))
+        my_dict = dict()
+        
+        freq_dist = nltk.FreqDist(inputs)
+
+        for user, freq in freq_dist.items():
+            my_dict[user] = (freq)
+        
+        for username in inputs:
+            freq_list.append(my_dict.get(username))
         cor_shape = np.array(freq_list)
         cor_shape = cor_shape.reshape(-1, 1)
+        print(cor_shape)
         return cor_shape
+    
+    
     
     
     
