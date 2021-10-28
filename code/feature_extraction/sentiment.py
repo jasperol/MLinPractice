@@ -21,10 +21,9 @@ class Sentiment(FeatureExtractor):
         "analyse sentiment of the tweet"
             
         sentiment = SentimentIntensityAnalyzer()
-    
         sentiment_score = [] 
         
-        # compute the sentiment score (ie compund score) for each of the tweets in the input column
+        # compute the sentiment score (so called compund score) for each of the tweets in the input column
         for tweet in inputs[0]:
             sent_tweet = sentiment.polarity_scores(tweet)
             sentiment_score.append(sent_tweet['compound']) 

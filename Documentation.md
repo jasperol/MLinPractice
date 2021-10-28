@@ -18,8 +18,8 @@ to get a combination of precision (how many positive classified tweets are actau
 and recall (how many true positives were caught).
 
 Which baselines did you use and why?
--Always true
--Always false
+-majority vote classifier
+-label frequency classifier
 
 
 
@@ -96,11 +96,16 @@ We implemented:
         predefined function from the nltk package.
 - words_most_common
 
--char_length was there to begin with
+- char_length was there to begin with and bigrams was found to be not strictly necessary to our code. 
 
 ### Results
 
 Feature value distributions can be found in the plot_images and feature_plots folder.
+
+Please see corresponding files 'feature plots' and 'plot images' to view the code and .png files respectively. 
+
+The features with the most significant division between viral and non-viral, is the day of the week that 
+the tweet was posted. So 
 
 ### Interpretation
 
@@ -111,6 +116,8 @@ Can we already guess which features may be more useful than others?
 If you didn't use any because you have only few features, just state that here.
 In that case, you can nevertheless apply some dimensionality reduction in order
 to analyze how helpful the individual features are during classification
+
+Due to not having all that many features  - dimensionality reduction seems to be unnecessary
 
 ### Design Decisions
 
@@ -132,14 +139,39 @@ Which features are the most important ones and why may that be the case?
 Which classifier(s) did you use? Which hyperparameter(s) (with their respective
 candidate values) did you look at? What were your reasons for this?
 
+- We continued using the already implemented K-nearest neighbour classifier, majority classifier, 
+and label frequency classifier
+- As well as implemented a random forest classifier with a specified number of trees set to 100 as
+this was found to produce signifiantly accurate results before levelling out and not improving the 
+classification by enough to necessate the computation required.
+- Other ideas: Naive Bayes or SVM
+
+
 ### Results
 
 The big finale begins: What are the evaluation results you obtained with your
 classifiers in the different setups? Do you overfit or underfit? For the best
 selected setup: How well does it generalize to the test set?
 
+- Unfortunately nothing impressive here... yeeet 
+
 ### Interpretation
 
 Which hyperparameter settings are how important for the results?
 How good are we? Can this be used in practice or are we still too bad?
 Anything else we may have learned?
+
+We have learned many skills: foremost being machine learning in practice requires
+far more than only coding skills, making a project with so many subfiles and steps 
+in the pipeline also requires incredinbly organised version control and diciplined 
+branching, coding and merging. As a group we struggled a lot with the set up, some 
+members opting for working on windows, some on the VM and we constantly had to 
+troubleshoot along the way. All these lessons mean we leave this seminar maybe not
+with the best code and the strongest results but we feel a lot more confident 
+(or maybe respectful) using Git and Trello to co-ordinate our efforts. But also 
+respecting that set-up, trouble-shooting, daily scrum meetings, and figuring out
+some-one elses code probably will take up 90% of your time and only a fraction of the 10% 
+coding gets spent on implementing super cool, trendy and impressive machine learning algorithms.
+So summarised in one sentence: What's the purpose of having the most sophisticated ML classifier
+if you can't even get the code to run? In theory it sounds great, in practise - you got to
+keep your workspace tidy. 

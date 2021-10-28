@@ -10,9 +10,11 @@ Created on Wed Sep 29 14:23:48 2021
 
 import argparse, pickle
 from sklearn.dummy import DummyClassifier
-from sklearn.metrics import accuracy_score, cohen_kappa_score
+from sklearn.metrics import accuracy_score, cohen_kappa_score, f1_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import GaussianNB
 from sklearn.pipeline import make_pipeline
 from mlflow import log_metric, log_param, set_tracking_uri
 
@@ -25,8 +27,11 @@ parser.add_argument("-i", "--import_file", help = "import a trained classifier f
 parser.add_argument("-m", "--majority", action = "store_true", help = "majority class classifier")
 parser.add_argument("-f", "--frequency", action = "store_true", help = "label frequency classifier")
 parser.add_argument("--knn", type = int, help = "k nearest neighbor classifier with the specified value of k", default = None)
+parser.add_argument("-r", "--random_forest", type = int, help = "random forest with specified number of trees", default = None)
+parser.add_argument("-n", "--naive_bayes", action = "store_true", help = "naive bayes classifier", default = None)
 parser.add_argument("-a", "--accuracy", action = "store_true", help = "evaluate using accuracy")
 parser.add_argument("-k", "--kappa", action = "store_true", help = "evaluate using Cohen's kappa")
+parser.add_argument("-f1", "--f1_score", action = "store_true", help = "evaluate using f1 score")
 parser.add_argument("--log_folder", help = "where to log the mlflow results", default = "data/classification/mlflow")
 args = parser.parse_args()
 
@@ -62,9 +67,9 @@ else:   # manually set up a classifier
         log_param("classifier", "frequency")
         params = {"classifier": "frequency"}
         classifier = DummyClassifier(strategy = "stratified", random_state = args.seed)
-        
     
     elif args.knn is not None:
+        # k nearest neighbour classifier
         print("    {0} nearest neighbor classifier".format(args.knn))
         log_param("classifier", "knn")
         log_param("k", args.knn)
@@ -73,12 +78,33 @@ else:   # manually set up a classifier
         knn_classifier = KNeighborsClassifier(args.knn, n_jobs = -1)
         classifier = make_pipeline(standardizer, knn_classifier)
     
+    elif args.random_forest is not None:
+        # random forest classifier with a specific number of trees
+        print("    {0} random forest classifier".format(args.random_forest))
+        log_param("classifier", "random_forest")
+        log_param("r", args.random_forest)
+        params = {"classifier": "random_forest", "r": args.random_forest}
+        standardizer = StandardScaler()
+        random_forest_classifier = RandomForestClassifier(args.random_forest)
+        classifier = make_pipeline(standardizer, random_forest_classifier)
+        
+    elif args.naive_bayes is not None:
+        # gaussian naive bayes classifier
+         print("    guassian naive bayes classifier" )
+         log_param("classifier", "naive_bayes")
+         params = {"classifier": "naive_bayes"}
+         standardizer = StandardScaler()
+         naive_bayes_classifier = GaussianNB()
+         classifier = make_pipeline(standardizer, naive_bayes_classifier)
+    
     classifier.fit(data["features"], data["labels"].ravel())
     log_param("dataset", "training")
    
-print(len(data["features"]))
+#print(data.shape)
 
-print(len(data["features"][0]))
+#print(data["features"][0])
+#print(data["features"][1])
+
 # now classify the given data
 prediction = classifier.predict(data["features"])
 
@@ -88,6 +114,8 @@ if args.accuracy:
     evaluation_metrics.append(("accuracy", accuracy_score))
 if args.kappa:
     evaluation_metrics.append(("Cohen_kappa", cohen_kappa_score))
+if args.f1_score:
+    evaluation_metrics.append(("f1_score", f1_score))
 
 # compute and print them
 for metric_name, metric in evaluation_metrics:

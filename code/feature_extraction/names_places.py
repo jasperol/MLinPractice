@@ -10,9 +10,7 @@ import numpy as np
 from nltk.tokenize import RegexpTokenizer
 from code.feature_extraction.feature_extractor import FeatureExtractor
 
-
 class NamesPlacesFeature(FeatureExtractor):
-    
     
     def __init__(self, input_column):
         super().__init__([input_column], "{0}_NNP".format(input_column))
@@ -20,6 +18,16 @@ class NamesPlacesFeature(FeatureExtractor):
     def _get_values(self, inputs):
 
           
+    #    nnp_perc = []     
+        
+
+
+        import pandas as pd
+        import csv
+        import numpy as np
+
+        df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
+        input_text = df["tweet"][:1000]      
         
         nnp_perc = []
         tokenizer = RegexpTokenizer(r'\w+')
