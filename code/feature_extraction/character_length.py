@@ -26,5 +26,4 @@ class CharacterLength(FeatureExtractor):
         
         result = np.array(inputs[0].str.len())
         result = result.reshape(-1,1)
-        print(result)
         return result

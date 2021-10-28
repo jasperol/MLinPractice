@@ -19,20 +19,12 @@ class NamesPlacesFeature(FeatureExtractor):
     
     def _get_values(self, inputs):
 
-        
-
-
-        import pandas as pd
-        import csv
-        import numpy as np
-
-        df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
-        input_text = df["tweet"][:1000]      
+          
         
         nnp_perc = []
         tokenizer = RegexpTokenizer(r'\w+')
 
-        for tweet in input_text:
+        for tweet in inputs[0]:
             words = tokenizer.tokenize(tweet)
             pos_tagged = nltk.pos_tag(words)
             my_dict = dict(pos_tagged)
