@@ -17,10 +17,6 @@ class NamesPlacesFeature(FeatureExtractor):
     
     def _get_values(self, inputs):
 
-    #    nnp_perc = []     
-        
-
-
         import pandas as pd
         import csv
         import numpy as np
@@ -39,8 +35,5 @@ class NamesPlacesFeature(FeatureExtractor):
             
         cor_shape = np.array(nnp_perc)
         cor_shape = cor_shape.reshape(-1,1)     
-        
-        print(cor_shape)
-
         
         return cor_shape

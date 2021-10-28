@@ -58,16 +58,6 @@ else:    # need to create FeatureCollector manually
     if args.sentiment:
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))
-        
-        
-    # create overall FeatureCollector
-    feature_collector = FeatureCollector(features)
-    
-    # fit it on the given data set (assumed to be training data)
-    feature_collector.fit(df)
-
-        
-"""
     if args.names_places:
         # amount of names and places per tweet
         features.append(NamesPlacesFeature(COLUMN_TWEET))
@@ -86,10 +76,13 @@ else:    # need to create FeatureCollector manually
     if args.words_most_common:
         # most common words in the tweets
         features.append(WordsMostCommon(SUFFIX_TOKENIZED)[0])
-       
-"""
-
-
+        
+   # create overall FeatureCollector
+    feature_collector = FeatureCollector(features)
+    
+    # fit it on the given data set (assumed to be training data)
+    feature_collector.fit(df)
+      
 # apply the given FeatureCollector on the current data set
 # maps the pandas DataFrame to an numpy array
 feature_array = feature_collector.transform(df)
