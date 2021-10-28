@@ -8,29 +8,24 @@ Created on Wed Sep 29 11:00:24 2021
 @author: lbechberger
 """
 
-import argparse, csv, pickle
+import argparse, csv, pickle, sys
 import pandas as pd
 import numpy as np
+sys.path.append('.MLinPractice/code')
+sys.path.append('./code/util')
+from code.util import COLUMN_LIKES, COLUMN_RETWEETS, COLUMN_LABEL, COLUMN 
+
+sys.path.append('./code/feature_extraction')
 from code.feature_extraction.character_length import CharacterLength
 from code.feature_extraction.names_places import NamesPlacesFeature
 from code.feature_extraction.sentiment import Sentiment
 from code.feature_extraction.tweet_frequency import TweetFrequency
-<<<<<<< HEAD
-#from code.feature_extraction.day_of_the_week import DayOfTheWeek
-#from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
-#from code.feature_extraction.hashtags_num import HashtagsCounts
-#from code.feature_extraction.words_most_common import WordsMostCommon
-from code.feature_extraction.feature_collector import FeatureCollector
-from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, SUFFIX_TOKENIZED, COLUMN_USERS
-=======
 from code.feature_extraction.day_of_the_week import DayOfTheWeek
 from code.feature_extraction.hashtags_most_common import HashtagsMostCommon
 from code.feature_extraction.hashtags_num import HashtagsCounts
 from code.feature_extraction.words_most_common import WordsMostCommon
 from code.feature_extraction.feature_collector import FeatureCollector
-from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS, SUFFIX_TOKENIZED
->>>>>>> a372af10bd70423c637f556fb0f64b2374486594
-
+#from code.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS, SUFFIX_TOKENIZED
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Feature Extraction")
@@ -64,8 +59,6 @@ else:    # need to create FeatureCollector manually
     if args.char_length:
         # character length of original tweet (without any changes)
         features.append(CharacterLength(COLUMN_TWEET))
-<<<<<<< HEAD
-=======
         
     if args.weekday:
         # day of the week of the tweet
@@ -81,9 +74,8 @@ else:    # need to create FeatureCollector manually
         
     if args.words_most_common:
         # most common words in the tweets
-        features.append(WordsMostCommon(SUFFIX_TOKENIZED))
-        
->>>>>>> a372af10bd70423c637f556fb0f64b2374486594
+        features.append(WordsMostCommon(COLUMN_TWEET))
+
     if args.names_places:
         # amount of names and places per tweet
         features.append(NamesPlacesFeature(COLUMN_TWEET))
@@ -91,10 +83,7 @@ else:    # need to create FeatureCollector manually
     if args.tweet_frequency:
         # how many tweets posted by one person
         features.append(TweetFrequency(COLUMN_USERS))
-<<<<<<< HEAD
-=======
 
->>>>>>> a372af10bd70423c637f556fb0f64b2374486594
     if args.sentiment:
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))
