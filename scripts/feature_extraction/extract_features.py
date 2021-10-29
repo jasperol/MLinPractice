@@ -106,6 +106,8 @@ else:    # need to create FeatureCollector manually
 # maps the pandas DataFrame to an numpy array
 feature_array = feature_collector.transform(df)
 
+print(feature_array.shape)
+
 # get label array
 label_array = np.array(df[COLUMN_LABEL])
 label_array = label_array.reshape(-1, 1)
