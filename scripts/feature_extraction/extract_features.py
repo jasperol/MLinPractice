@@ -48,6 +48,7 @@ parser.add_argument("-w", "--weekday", action = "store_true", help = "extract th
 parser.add_argument("-h_mc", "--hashtags_most_common", action = "store_true", help = "counts how many of the most common hashtags have been used")
 parser.add_argument("-h_n", "--hashtags_num", action = "store_true", help = "counts the number of hashtags")
 parser.add_argument("-t", "--words_most_common", action = "store_true", help = "counts how many of the most common words have been used")
+
 args = parser.parse_args()
 
 # load data
