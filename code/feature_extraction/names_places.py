@@ -17,30 +17,18 @@ class NamesPlacesFeature(FeatureExtractor):
     
     def _get_values(self, inputs):
 
-    #    nnp_perc = []     
-        
-
-
-        import pandas as pd
-        import csv
-        import numpy as np
-
-        df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
-        input_text = df["tweet"][:1000]      
-        
+        # create empty list
         nnp_perc = []
         tokenizer = RegexpTokenizer(r'\w+')
 
-        for tweet in input_text:
+        # Use NER package on each tweet in column and return the number of NNPs in each tweet
+        for tweet in inputs[0]:
             words = tokenizer.tokenize(tweet)
             pos_tagged = nltk.pos_tag(words)
             my_dict = dict(pos_tagged)
             nnp_perc.append(sum(value == "NNP" for value in my_dict.values())/len(pos_tagged))
             
+        # changes the shape of the list into a column
         cor_shape = np.array(nnp_perc)
-        cor_shape = cor_shape.reshape(-1,1)     
-        
-        print(cor_shape)
-
-        
+        cor_shape = cor_shape.reshape(-1,1)             
         return cor_shape
