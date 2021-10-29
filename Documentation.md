@@ -92,12 +92,17 @@ We implemented:
         This feature is extracted from the date column and assigns numerical values for each day of the week. The idea is to
         check if the day of the week decides over the virality of the tweet.
 - hastags_most_common
+        This features first extracts the most common hashtags over the whole dataset and then checks for each tweet how many
+        of the top 50 hashtags were used.
 - hastags_num
+        Here the overall number of hashtags is computed in order to check whether for example a high number of hashtags makes
+        a tweet more likely to go viral or not.
 - tweet_frequency
         This feature returns the amount of times that a certain user has posted a tweet, it is implemented by using a 
         predefined function from the nltk package.
 - words_most_common
-
+        This features first extracts the most common words over the whole dataset and then checks for each tweet how many
+        of the top 50 words were used.
 - char_length was there to begin with and bigrams was found to be not strictly necessary to our code. 
 
 ### Results
@@ -107,7 +112,7 @@ Feature value distributions can be found in the plot_images and feature_plots fo
 Please see corresponding files 'feature plots' and 'plot images' to view the code and .png files respectively. 
 
 The features with the most significant division between viral and non-viral, is the day of the week that 
-the tweet was posted. So 
+the tweet was posted. From the plot one can see that posting on weekends makes a tweet much more likely to be viral.
 
 ### Interpretation
 

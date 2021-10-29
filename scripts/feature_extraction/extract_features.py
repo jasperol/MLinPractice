@@ -75,9 +75,9 @@ else:    # need to create FeatureCollector manually
         # amount of names and places per tweet
         #features.append(NamesPlacesFeature(COLUMN_TWEET))
         
-    #if args.tweet_frequency:
+    if args.tweet_frequency:
         # how many tweets posted by one person
-        #features.append(TweetFrequency(COLUMN_USERS))
+        features.append(TweetFrequency(COLUMN_USERS))
         
     if args.weekday:
         # day of the week of the tweet
@@ -104,8 +104,6 @@ else:    # need to create FeatureCollector manually
 # apply the given FeatureCollector on the current data set
 # maps the pandas DataFrame to an numpy array
 feature_array = feature_collector.transform(df)
-
-print(feature_array[0:10])
 
 # get label array
 label_array = np.array(df[COLUMN_LABEL])
