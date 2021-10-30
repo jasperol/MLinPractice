@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Oct 18 21:33:57 2021
+
+@author: sascholle
+"""
+
+# plotting with matplotlib to see histograms of all the feature_labels
+import pickle
+from matplotlib import pyplot as plt
+import pandas as pd
+
+with open("data/feature_extraction/training.pickle", "rb") as f_in:
+    data = pickle.load(f_in)
+
+features = data["features"]
+labels = data["labels"]
+
+plt.hist(features)
+
+# printing out the objet in the console as well to see the feature, labels and feature_names arrays
+object = pd.read_pickle(r"data/feature_extraction/training.pickle")
+print(object)

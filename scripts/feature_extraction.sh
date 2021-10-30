@@ -5,7 +5,7 @@ mkdir -p data/feature_extraction/
 
 # run feature extraction on training set (may need to fit extractors)
 echo "  training set"
-python -m scripts.feature_extraction.extract_features data/preprocessing/split/training.csv data/feature_extraction/training.pickle -e data/feature_extraction/pipeline.pickle --tweet_frequency --sentiment --names_places --char_length --weekday --hashtags_most_common --hashtags_num --words_most_common
+python -m scripts.feature_extraction.extract_features data/preprocessing/split/training.csv data/feature_extraction/training.pickle -e data/feature_extraction/pipeline.pickle --hashtags_most_common --sentiment --tweet_frequency --char_length --weekday --hashtags_num --words_most_common --replies_num
 
 
 # run feature extraction on validation set and test set (with pre-fit extractors)

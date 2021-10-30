@@ -30,8 +30,9 @@ from scripts.feature_extraction.day_of_the_week import DayOfTheWeek
 from scripts.feature_extraction.hashtags_most_common import HashtagsMostCommon
 from scripts.feature_extraction.hashtags_num import HashtagsCounts
 from scripts.feature_extraction.words_most_common import WordsMostCommon
+from scripts.feature_extraction.replies_num import RepliesCount
 from scripts.feature_extraction.feature_collector import FeatureCollector
-from scripts.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS
+from scripts.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS, COLUMN_REPLIES
 #from util import COLUMN_RETWEETS, COLUMN_LIKES
 
 # setting up CLI
@@ -48,6 +49,7 @@ parser.add_argument("-w", "--weekday", action = "store_true", help = "extract th
 parser.add_argument("-h_mc", "--hashtags_most_common", action = "store_true", help = "counts how many of the most common hashtags have been used")
 parser.add_argument("-h_n", "--hashtags_num", action = "store_true", help = "counts the number of hashtags")
 parser.add_argument("-t", "--words_most_common", action = "store_true", help = "counts how many of the most common words have been used")
+parser.add_argument("-r", "--replies_num", action = "store_true", help = "counts the number of replies")
 
 args = parser.parse_args()
 
@@ -76,9 +78,9 @@ else:    # need to create FeatureCollector manually
         # amount of names and places per tweet
         #features.append(NamesPlacesFeature(COLUMN_TWEET))
         
-    #if args.tweet_frequency:
+    if args.tweet_frequency:
         # how many tweets posted by one person
-        #features.append(TweetFrequency(COLUMN_USERS))
+        features.append(TweetFrequency(COLUMN_USERS))
         
     if args.weekday:
         # day of the week of the tweet
@@ -95,6 +97,10 @@ else:    # need to create FeatureCollector manually
     if args.words_most_common:
         # most common words in the tweets
         features.append(WordsMostCommon(COLUMN_TWEET))
+        
+    if args.replies_num:
+        # number of replies
+        features.append(RepliesCount(COLUMN_REPLIES))
            
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
