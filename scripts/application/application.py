@@ -12,7 +12,7 @@ import argparse, pickle
 import pandas as pd
 from sklearn.pipeline import make_pipeline
 from scripts.util import COLUMN_TWEET, COLUMN_DATE
-#from scripts.util import COLUMN_TAGS
+from scripts.util import COLUMN_TAGS
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Application")
@@ -44,7 +44,7 @@ while True:
     # ask user for input
     tweet = input("Please type in your tweet (type 'quit' to quit the program): ")
     date = str(input("Please enter the current date(yyyy-mm-dd): "))
-    #tags = input("Please type in your hashtags (type 'hashtag'): ")
+    tags = input("Please type in your hashtags (type 'hashtag'): ")
     
     # terminate if necessary
     if tweet == "quit":
@@ -55,7 +55,7 @@ while True:
     df = pd.DataFrame()
     df[COLUMN_TWEET] = [tweet]
     df[COLUMN_DATE] = [date]
-    #df[COLUMN_TAGS] = [tags]
+    df[COLUMN_TAGS] = [tags]
     
     prediction = pipeline.predict(df)
     confidence = pipeline.predict_proba(df)

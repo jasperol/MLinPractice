@@ -116,10 +116,13 @@ We implemented 8 features in total:
 - hastags_num
         Again, we hoped to see a correlation between number of hashtags and viralness, as research has shown
         that for example in Instagram posts, making your post easily searchable through widely used hashtags, 
-        makes your post more discoverable and hopefully therefore more viral.
+        makes your post more discoverable and hopefully therefore more viral.  Here the overall number of hashtags is 
+	computed in order to check whether for example a high number of hashtags makes a tweet more likely to go viral or not.
 - hastags_most_common
         As an extrapolation of the previous feature, we were then curious to check if certain hastags were lent themselves
-        to being present in viral tweets. Are there certain topics that are particularly 'hot' in data science related tweets
+        to being present in viral tweets. Are there certain topics that are particularly 'hot' in data science related tweets. 
+	This features first extracts the most common hashtags over the whole dataset and then checks for each tweet how many
+        of the top 50 hashtags were used.
 - tweet_frequency
         This feature returns the amount of times that a certain user has posted a tweet, it is implemented by using a 
         predefined function from the nltk package. The motivation was to analyse if more regular tweeters
@@ -127,7 +130,8 @@ We implemented 8 features in total:
         not have the same following.
 - words_most_common
         And finally, we wanted to see if viral tweets had an average lexicon that differed from non-viral 
-        tweets, and if so - what these were. 
+        tweets, and if so - what these were. This features first extracts the most common words over the whole dataset and 
+	then checks for each tweet how many of the top 50 words were used.
         
 
 - char_length was implemented (a score of the length of the tweet) and bigrams was found to be not strictly necessary for our code. 
@@ -139,7 +143,7 @@ Feature value distributions can be found in the plot_images and feature_plots fo
 Please see corresponding files 'feature plots' and 'plot images' to view the code and .png files respectively. 
 
 The features with the most significant division between viral and non-viral, is the day of the week that 
-the tweet was posted. So 
+the tweet was posted. From the plot one can see that posting on weekends makes a tweet much more likely to be viral.
 
 ### Interpretation
 

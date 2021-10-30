@@ -112,7 +112,7 @@ else:    # need to create FeatureCollector manually
 # maps the pandas DataFrame to an numpy array
 feature_array = feature_collector.transform(df)
 
-print(feature_array[0:10])
+print(feature_array.shape)
 
 # get label array
 label_array = np.array(df[COLUMN_LABEL])
