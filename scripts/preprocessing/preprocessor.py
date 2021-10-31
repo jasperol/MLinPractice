@@ -55,4 +55,5 @@ class Preprocessor(BaseEstimator,TransformerMixin):
         # add to copy of DataFrame
         df_copy = df.copy()
         df_copy[self._output_column] = self._get_values(inputs)   
+        
         return df_copy

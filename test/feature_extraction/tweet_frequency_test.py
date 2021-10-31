@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+Unit test for tweet_frequency.py
+
 Created on Wed Oct 13 21:14:23 2021
 
 @author: Beck
@@ -8,7 +10,7 @@ Created on Wed Oct 13 21:14:23 2021
 import unittest
 import pandas as pd
 import csv
-from code.feature_extraction.tweet_frequency import TweetFrequency
+from scripts.feature_extraction.tweet_frequency import TweetFrequency
 
 class TweetFrequencyTest(unittest.TestCase):
     
@@ -29,6 +31,5 @@ class TweetFrequencyTest(unittest.TestCase):
         print(max(result))
         self.assertEqual(result[0], expected_value)
         
-    
 if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+Unit test for name_places.py
+
 Created on Wed Oct 13 13:15:45 2021
 
 @author: Beck
@@ -9,8 +11,7 @@ Created on Wed Oct 13 13:15:45 2021
 import unittest
 import pandas as pd
 import csv
-import numpy as np
-from code.feature_extraction.names_places import NamesPlacesFeature
+from scripts.feature_extraction.names_places import NamesPlacesFeature
 
 class NamesPlacesFeatureTest(unittest.TestCase):
     
@@ -29,7 +30,6 @@ class NamesPlacesFeatureTest(unittest.TestCase):
         expected_value = 0.5
 
         result = self.names_places_feature._get_values(input_text)
-        print(result[:10])
         self.assertEqual(result[2], expected_value)
         
     
