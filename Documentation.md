@@ -44,7 +44,7 @@ Also the accuracy was 0.83 for both training and validation, something else to u
 later on with our 'real' classifiers.
 
 
-The results and interpretation thereof are discussed below, within the context of the classification section
+The results and interpretation thereof are discussed below, within the context of the classification section.
 
 
 
@@ -76,8 +76,9 @@ For example a sentence like 'Machine Learning is the best! I love it so much' wo
 1. create labels: 
     If the likes + retweets > 50 then it is labelled 'true' for being viral. Otherwise it is labelled 'false'. 
     This is saved in a novel column in the dataframe in util.py as 'COLUMN_LABEL'.
-    e.g. let's say our example sentence is viral. It gets the label = TRUE. This is also stored in data/preprocessing/labeled.csv
-    which gets passed to the next stage:
+    Another column is created 'VIRAL_COUNT' for a continuous measurement of this score.
+    e.g. let's say our example sentence is viral. It gets the label = TRUE. And a score of 80. 
+    This is also stored in data/preprocessing/labeled.csv which gets passed to the next stage:
 2. In general preprocessing:
     The punctuation_remover any punctuation points are replaced with an empty space " ". This is stored in "COLUMN_PUNCTUATION". 
     e.g. "Machine Learning is the best I love it so much"
@@ -149,6 +150,10 @@ We created 9 features in total:
 
 Please see corresponding files 'feature_plots' and 'plot_images' to view the code and .png files respectively, 
 that visualise how the features divided the viral/non-viral tweets and their spread.
+-  most noteworthy look at the distribution in tweet_frequency_plot.png for incredibly clear 
+   differences between viral and non-viral
+-  the viralness_plot.png also shows a much greater spread of viral tweets than non-viral 
+   tweets in context of number of replies.
 
 
 ### Interpretation
@@ -261,7 +266,8 @@ scripts/classification.sh
     f1_score: 0.3354931605471562 
   
 Unfortunately the random forest seems to be overfitting, as the metrics are somewhat worse in 
-the validation set
+the validation set:
+
   validation set
     accuracy: 0.9223826104594165
     cohen_kappa: 0.30896697118777483
@@ -269,13 +275,22 @@ the validation set
 
 For the best selected setup: How well does it generalize to the test set?
 
+Our validation set results were confirmed by the following test set results with a random forest 
+of 50 trees:
+
+  test set
+    accuracy: 0.909367499408404
+    cohen_kappa: 0.28915443040134936
+    f1_score: 0.3312546769768022
+
 
 ### Interpretation
 
 Is there anything we learned from these results?
 
-We are excited to report that our training and validation results are an improvement on our baselines
- 
+We are excited to report that our training and validation results are an improvement on our baselines:
+for reference, we had an accuracy of 0.908 Cohen's kappa and F1 scores were 0.004 and 0.095.
+
 They are unfortuately not substantial results, with only moderate agreement for Cohen's kappa for example on our 
 training set, and fair results on the validation set. However, with more time and metadata 
 (like number of followers we anticipate would have been INCREDIBLY telling), we are convinced that 
