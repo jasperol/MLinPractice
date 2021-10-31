@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Feature that returns the number of times a user has tweeted
+
 Created on Wed Oct 13 21:13:59 2021
 
-@author: Beck
+@author: joldach
 """
 
 import nltk
@@ -10,16 +12,16 @@ import sys
 sys.path.append('./scripts/')
 from scripts.feature_extraction.feature_extractor import FeatureExtractor
 import numpy as np
-import pandas as pd
-import csv
 
+# Class that returns the number of times a user has tweeted
 class TweetFrequency(FeatureExtractor):
     
-    
+    # constructor
     def __init__(self, input_column):
+        # access superclass of all features
         super().__init__([input_column], "{0}_tweet_frequency".format(input_column))
 
-        
+            # don't need to fit, so don't overwrite _set_variables()
         
     def _get_values(self, inputs):
 
@@ -39,9 +41,10 @@ class TweetFrequency(FeatureExtractor):
             freq_list.append(my_dict.get(username))
             
         # transform shape 
-        cor_shape = np.array(freq_list)
-        cor_shape = cor_shape.reshape(-1, 1)
-        return cor_shape
+        result = np.array(freq_list)
+        result = result.reshape(-1, 1)
+        
+        return result
     
     
     

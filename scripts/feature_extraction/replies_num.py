@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Simple (but effective) feature that counts the number of replies to a tweet
+
 Created on Sat Oct 30 12:23:32 2021
 
-@author: ml
+@author: sascholle
 """
 
 import numpy as np
@@ -19,6 +21,9 @@ class RepliesCount(FeatureExtractor):
         # access superclass of all features
         super().__init__([input_column], "{0}_num".format(input_column))
         
+    # don't need to fit, so don't overwrite _set_variables()
+      
+    # return the number of replies 
     def _get_values(self, inputs):
         
       replies = inputs[0]

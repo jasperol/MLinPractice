@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
+Feature that counts the number of NNPs (Proper Nouns) in each tweet.
+
 Created on Wed Oct 13 13:17:39 2021
 
-@author: Beck
+@author: joldach
 """
 
 import nltk
@@ -14,8 +16,12 @@ from scripts.feature_extraction.feature_extractor import FeatureExtractor
 
 class NamesPlacesFeature(FeatureExtractor):
     
+    #constructor
     def __init__(self, input_column):
+        # access superclass of all features
         super().__init__([input_column], "{0}_NNP".format(input_column))
+    
+    # don't need to fit, so don't overwrite _set_variables()
     
     def _get_values(self, inputs):
 
@@ -31,6 +37,7 @@ class NamesPlacesFeature(FeatureExtractor):
             nnp_perc.append(sum(value == "NNP" for value in my_dict.values())/len(pos_tagged))
             
         # changes the shape of the list into a column
-        cor_shape = np.array(nnp_perc)
-        cor_shape = cor_shape.reshape(-1,1)             
-        return cor_shape
+        result = np.array(nnp_perc)
+        result = result.reshape(-1,1) 
+            
+        return result

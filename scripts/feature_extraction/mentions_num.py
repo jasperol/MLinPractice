@@ -20,6 +20,8 @@ class MentionsCounts(FeatureExtractor):
         # access superclass of all features
         super().__init__([input_column], "{0}_num".format(input_column))
         
+        # don't need to fit, so don't overwrite _set_variables()
+        
     def _get_values(self, inputs):
         
         # pre-processing

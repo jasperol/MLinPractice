@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """
+Unit test for name_places.py
+
 Created on Wed Oct 13 13:15:45 2021
 
 @author: Beck
@@ -9,7 +11,7 @@ Created on Wed Oct 13 13:15:45 2021
 import unittest
 import pandas as pd
 import csv
-from code.feature_extraction.names_places import NamesPlacesFeature
+from scripts.feature_extraction.names_places import NamesPlacesFeature
 
 class NamesPlacesFeatureTest(unittest.TestCase):
     
