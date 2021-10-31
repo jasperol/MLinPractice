@@ -39,7 +39,6 @@ class TweetFrequency(FeatureExtractor):
         # transform shape 
         cor_shape = np.array(freq_list)
         cor_shape = cor_shape.reshape(-1, 1)
-        print(cor_shape)
         return cor_shape
     
     

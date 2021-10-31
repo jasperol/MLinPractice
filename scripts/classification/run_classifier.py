@@ -77,7 +77,7 @@ else:   # manually set up a classifier
         standardizer = StandardScaler()
         knn_classifier = KNeighborsClassifier(args.knn, n_jobs = -1)
         classifier = make_pipeline(standardizer, knn_classifier)
-    
+        
     elif args.random_forest is not None:
         # random forest classifier with a specific number of trees
         print("    {0} random forest classifier".format(args.random_forest))
@@ -99,11 +99,6 @@ else:   # manually set up a classifier
     
     classifier.fit(data["features"], data["labels"].ravel())
     log_param("dataset", "training")
-   
-#print(data.shape)
-
-#print(data["features"][0])
-#print(data["features"][1])
 
 # now classify the given data
 prediction = classifier.predict(data["features"])
@@ -113,7 +108,7 @@ evaluation_metrics = []
 if args.accuracy:
     evaluation_metrics.append(("accuracy", accuracy_score))
 if args.kappa:
-    evaluation_metrics.append(("Cohen_kappa", cohen_kappa_score))
+    evaluation_metrics.append(("cohen_kappa", cohen_kappa_score))
 if args.f1_score:
     evaluation_metrics.append(("f1_score", f1_score))
 

@@ -39,8 +39,7 @@ class DayOfTheWeek(FeatureExtractor):
         dates.insert(2, 'weekday_alph', value=np.zeros(shape=(len(dates), 1), dtype=int))
                   
         # sort and re-index
-        dates_sorted = dates.sort_values(by='date', ascending=False)
-        dates_newIdx = dates_sorted.reset_index(drop=True)
+        dates_newIdx = dates.reset_index(drop=True)
                
         # store weekday values in array, extract values, and add to dataframe
         dates_arr = np.array(dates_newIdx['date'])

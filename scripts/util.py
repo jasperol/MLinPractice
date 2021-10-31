@@ -15,6 +15,7 @@ COLUMN_RETWEETS = "retweets_count"
 COLUMN_DATE = "date"
 COLUMN_TAGS = "hashtags"
 COLUMN_USERS = "username"
+COLUMN_REPLIES = "replies_count"
 
 # column names of novel columns for preprocessing
 COLUMN_LABEL = "label"

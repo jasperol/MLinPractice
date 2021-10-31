@@ -14,6 +14,7 @@ python -m scripts.classification.run_classifier data/dimensionality_reduction/tr
 python -m scripts.classification.run_classifier data/dimensionality_reduction/training.pickle -e data/classification/classifier.pickle --knn 7 -s 42 --f1_score --accuracy --kappa
 python -m scripts.classification.run_classifier data/dimensionality_reduction/training.pickle -e data/classification/classifier.pickle --knn 8 -s 42 --f1_score --accuracy --kappa
 python -m scripts.classification.run_classifier data/dimensionality_reduction/training.pickle -e data/classification/classifier.pickle --knn 9 -s 42 --f1_score --accuracy --kappa
+python -m scripts.classification.run_classifier data/dimensionality_reduction/training.pickle -e data/classification/classifier.pickle --random_forest 50 -s 42 --f1_score --accuracy --kappa
 
 # run feature extraction on validation set (with pre-fit extractors)
 echo "  validation set"
