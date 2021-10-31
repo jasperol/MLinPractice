@@ -15,11 +15,12 @@ from scripts.feature_extraction.hashtags_most_common import HashtagsMostCommon
 # load the data
 df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
+
 top_20 = HashtagsMostCommon(df)[1]
 
 top_tags = pd.DataFrame(top_20)
 
-# visualisation
+# plotting of most common hashtags
 x = top_tags[0]
 
 fig,ax = plt.subplots(1,1)

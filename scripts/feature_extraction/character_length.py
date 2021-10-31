@@ -18,6 +18,7 @@ class CharacterLength(FeatureExtractor):
     
     # constructor
     def __init__(self, input_column):
+        # access superclass of all features
         super().__init__([input_column], "{0}_charlength".format(input_column))
     
     # don't need to fit, so don't overwrite _set_variables()
@@ -25,7 +26,7 @@ class CharacterLength(FeatureExtractor):
     # compute the word length based on the inputs
     def _get_values(self, inputs):
                        
-        
         result = np.array(inputs[0].str.len())
         result = result.reshape(-1,1)
+
         return result
