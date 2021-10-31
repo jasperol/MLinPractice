@@ -12,7 +12,7 @@ import sys
 sys.path.append('./scripts/')
 from scripts.feature_extraction.feature_extractor import FeatureExtractor
 
-# class for extracting the number of hashtags
+# class for extracting the number of mentions
 class MentionsCounts(FeatureExtractor):
 
     # constructor
@@ -22,8 +22,12 @@ class MentionsCounts(FeatureExtractor):
         
     def _get_values(self, inputs):
         
+        # pre-processing
         mentions = inputs[0]
+        
+        # count the occurences of 'id' which is equal to the number of mentions of another user
         counts = [m.count('id') for m in mentions]
+        
         result = np.array(counts)
         result = result.reshape(-1,1)
         

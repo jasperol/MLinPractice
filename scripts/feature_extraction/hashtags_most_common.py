@@ -44,6 +44,7 @@ class HashtagsMostCommon(FeatureExtractor):
         most_common_tags = freq.most_common(50)
             
         # check for each tweet how many of the most common hashtags are included
+        # and store in 'counts'
         counts = []
 
         for h in hasch:

@@ -11,17 +11,7 @@ Created on Wed Sep 29 11:00:24 2021
 import argparse, csv, pickle, sys
 import pandas as pd
 import numpy as np
-
 sys.path.append('./scripts/')
-#sys.path.append('./scripts/feature_extraction/names_places')
-#sys.path.append('./scripts/feature_extraction/sentiment')
-#sys.path.append('./scripts/feature_extraction/tweet_frequency')
-#sys.path.append('./scripts/feature_extraction/day_of_the_week')
-#sys.path.append('./scripts/feature_extraction/hashtags_most_common')
-#sys.path.append('./scripts/feature_extraction/hashtags_num')
-#sys.path.append('./scripts/feature_extraction/words_most_common')
-#sys.path.append('./scripts/feature_extraction/feature_collector')
-
 from scripts.feature_extraction.character_length import CharacterLength
 from scripts.feature_extraction.sentiment import Sentiment
 from scripts.feature_extraction.tweet_frequency import TweetFrequency
@@ -33,7 +23,6 @@ from scripts.feature_extraction.mentions_num import MentionsCounts
 from scripts.feature_extraction.replies_num import RepliesCount
 from scripts.feature_extraction.feature_collector import FeatureCollector
 from scripts.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS, COLUMN_REPLIES, COLUMN_MENTIONS
-#from scripts.util import COLUMN_RETWEETS, COLUMN_LIKES
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Feature Extraction")
@@ -75,10 +64,6 @@ else:    # need to create FeatureCollector manually
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))
         
-    #if args.names_places:
-        # amount of names and places per tweet
-        #features.append(NamesPlacesFeature(COLUMN_TWEET))
-        
     if args.tweet_frequency:
         # how many tweets posted by one person
         features.append(TweetFrequency(COLUMN_USERS))
@@ -116,8 +101,6 @@ else:    # need to create FeatureCollector manually
 # apply the given FeatureCollector on the current data set
 # maps the pandas DataFrame to an numpy array
 feature_array = feature_collector.transform(df)
-
-print(sum(feature_array[:,-1]))
 
 # get label array
 label_array = np.array(df[COLUMN_LABEL])
