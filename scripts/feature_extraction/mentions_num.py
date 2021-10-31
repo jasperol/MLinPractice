@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-Feature that extracts the number of hashtags.
+Feature that extracts the number of mentions.
 
-Created on Thu Oct 21 11:23:21 2021
+Created on Sun Oct 31 12:05:48 2021
 
 @author: jch
 """
@@ -13,7 +13,7 @@ sys.path.append('./scripts/')
 from scripts.feature_extraction.feature_extractor import FeatureExtractor
 
 # class for extracting the number of hashtags
-class HashtagsCounts(FeatureExtractor):
+class MentionsCounts(FeatureExtractor):
 
     # constructor
     def __init__(self, input_column):
@@ -22,21 +22,8 @@ class HashtagsCounts(FeatureExtractor):
         
     def _get_values(self, inputs):
         
-        hasch = inputs[0]
-        counts = []
-        hashtags = []
-        
-        for h in hasch:
-            
-            if len(h) > 2:
-                tags = h.split("'")
-                words = [t for t in tags if t.isalnum()]
-                counts.append(len(words))
-                hashtags.append(words)
-            
-            else:
-                counts.append(0)
-        
+        mentions = inputs[0]
+        counts = [m.count('id') for m in mentions]
         result = np.array(counts)
         result = result.reshape(-1,1)
         

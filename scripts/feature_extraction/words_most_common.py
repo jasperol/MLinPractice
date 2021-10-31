@@ -21,7 +21,7 @@ class WordsMostCommon(FeatureExtractor):
     # constructor
     def __init__(self, input_column):
         # access superclass of all features
-        super().__init__([input_column], "{0}_tweet_words_most_common".format(input_column))
+        super().__init__([input_column], "{0}_words_most_common".format(input_column))
         
     def _get_values(self, inputs):
         

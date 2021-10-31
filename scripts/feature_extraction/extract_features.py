@@ -23,17 +23,17 @@ sys.path.append('./scripts/')
 #sys.path.append('./scripts/feature_extraction/feature_collector')
 
 from scripts.feature_extraction.character_length import CharacterLength
-from scripts.feature_extraction.names_places import NamesPlacesFeature
 from scripts.feature_extraction.sentiment import Sentiment
 from scripts.feature_extraction.tweet_frequency import TweetFrequency
 from scripts.feature_extraction.day_of_the_week import DayOfTheWeek
 from scripts.feature_extraction.hashtags_most_common import HashtagsMostCommon
 from scripts.feature_extraction.hashtags_num import HashtagsCounts
 from scripts.feature_extraction.words_most_common import WordsMostCommon
+from scripts.feature_extraction.mentions_num import MentionsCounts
 from scripts.feature_extraction.replies_num import RepliesCount
 from scripts.feature_extraction.feature_collector import FeatureCollector
-from scripts.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS, COLUMN_REPLIES
-#from util import COLUMN_RETWEETS, COLUMN_LIKES
+from scripts.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS, COLUMN_REPLIES, COLUMN_MENTIONS
+#from scripts.util import COLUMN_RETWEETS, COLUMN_LIKES
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Feature Extraction")
@@ -48,6 +48,7 @@ parser.add_argument("-f", "--tweet_frequency", action = "store_true", help = "co
 parser.add_argument("-w", "--weekday", action = "store_true", help = "extract the day of the week")
 parser.add_argument("-h_mc", "--hashtags_most_common", action = "store_true", help = "counts how many of the most common hashtags have been used")
 parser.add_argument("-h_n", "--hashtags_num", action = "store_true", help = "counts the number of hashtags")
+parser.add_argument("-m_n", "--mentions_num", action = "store_true", help = "counts the number of mentions")
 parser.add_argument("-t", "--words_most_common", action = "store_true", help = "counts how many of the most common words have been used")
 parser.add_argument("-r", "--replies_num", action = "store_true", help = "counts the number of replies")
 
@@ -101,6 +102,10 @@ else:    # need to create FeatureCollector manually
     if args.replies_num:
         # number of replies
         features.append(RepliesCount(COLUMN_REPLIES))
+        
+    if args.mentions_num:
+        # number of mentions
+        features.append(MentionsCounts(COLUMN_MENTIONS))
            
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
@@ -112,7 +117,7 @@ else:    # need to create FeatureCollector manually
 # maps the pandas DataFrame to an numpy array
 feature_array = feature_collector.transform(df)
 
-print(feature_array.shape)
+print(sum(feature_array[:,-1]))
 
 # get label array
 label_array = np.array(df[COLUMN_LABEL])

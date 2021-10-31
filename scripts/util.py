@@ -16,6 +16,7 @@ COLUMN_DATE = "date"
 COLUMN_TAGS = "hashtags"
 COLUMN_USERS = "username"
 COLUMN_REPLIES = "replies_count"
+COLUMN_MENTIONS = "mentions"
 
 # column names of novel columns for preprocessing
 COLUMN_LABEL = "label"
