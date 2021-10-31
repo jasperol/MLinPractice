@@ -1,145 +1,122 @@
 # Documentation 
 
 This project aims to predict if a tweet will become viral or not. In order to 
-answer this question we have implemented some features that will extract some information from the dataset.
+answer this question we have implemented some features that will extract information from the dataset.
+The dataset consists of ~300 000 tweets containing the phrases "data science", "data analysis" or "data visualisation"
+with 38 raw features including metadata like the id, date, place etc.
 With these features we hope to train a classifier to determine if a tweet will be viral or not.
+
 
 
 ## Evaluation
 
 ### Design Decisions
 
-We used the included accuracy and cohens kappa metrics, otherwise we also used an f1_score metric 
-to get a combination of precision (how many positive classified tweets are actaully positive)
-and recall (how many true positives were caught).
+Which evaluation metrics did we use and why? 
 
-We used the following baselines:
--majority vote classifier
--label frequency classifier
+We used the included accuracy and Cohen's kappa metrics, accuracy because it is one of the most
+common evaluation metrics and incredibly simple. However due to our unbalanced data, it didn't 
+actually say very much. Therefore we looked towards Cohen's kappa, which accesses the agreement
+between raters, and therefore takes into account an imbalance in class distribution. This gave us
+a more useful judgement of our classifer.
+
+And finally we added the F1 score, which is also good for imbalanced data. This gave us a value that 
+is a combination of precision (how many positive classified tweets are actaully positive) 
+and recall (how many true positives were caught). As such it gave us an indictation of both False Negatives and
+False Positives - both of which we would want to avoid in viral-tweet classification algorithm.
+
+Which baselines did we use and why?
 By comparing ourselves to these very uninformative classifiers we make sure to view
 any correct classifications in context.
-Which evaluation metrics did you use and why? 
 
-We used the included accuracy and Cohen's kappa metrics, accuracy simply because it is one of the most
-common evaluation metrics and incredibly simple, however due to our unbalanced classes doesn't 
-actually say very much. Therefore we looked towards Cohen's kappa, which access the agreement
-between raters, and therefore takes into account an imbalance in cass distribution, to give
-us a more useful judgement of our classifer. And finally we used the F1 score, also good for imbalanced data,
-to get a value that is a combination of precision (how many positive classified tweets are actaully positive) 
-and recall (how many true positives were caught), which gives us an indictation of both False Negatives and
-False Positives - both of which we would want to avoid in viral-tweet classification.
+- Majority Vote classifier: We used this because we had a majority negative class (about 95% non-viral) and 
+this Dummy classifier always predicts the most frequent label in the training set. So the accuracy score 
+was rather high (0.908). This means it was easy to see if our classifier had made any improvements 
+because it would need to be above 90%.
+However the majority vote classifer only computes '0' for the Cohen's kappa and F1 scores. 
+So didn't set much of a standard to compare our classifiers towards. 
+Therefore we also made use of the Label Frequency classifier.
 
-Which baselines did you use and why?
--majority vote classifier: as this Dummy classifier always predicts the most frequent label
-in the training set, we used this because we had a majority negative class (about 90% 
-of the dataset were non-viral tweets) meaning the accuracy score was rather high (0.908) 
-even just for a baseline, which would make analysing our classifier quite easy -
-as it would need to have an accuracy above 90% to have made any improvements. 
-However the cohens kappa and f1 scores were both 0 so it didn't help much with being used
-to compare our other classifiers. There we also made use of the:
--label frequency classifier: this classifier generates predictions by respecting the training set's
-class distribution, so here we saw that the cohens kappa and f1 scores were 0.004 and 0.095 for the 
+- Label Frequency classifier: this classifier generates predictions by respecting the training set's
+class distribution. So here we saw that the Cohen's kappa and F1 scores were 0.004 and 0.095 respectively for the 
 training set and less for the validation set - which at least gave us a figure to work with. 
 Also the accuracy was 0.83 for both training and validation, something else to use as a reference
 later on with our 'real' classifiers.
 
 
-
-### Results
-- accuracy results: 
-- Cohen's kappa results:
-- F1 score results:
-
-As mentioned above, the baseline of 'always false' provides a promising result as 90% of the tweets are classified as non-viral.
-Therefore the accuracy is 90%, however the F1 score will all be 0 or NaN. 
-'Always true' provides the opposite of course with 10% accuracy and precision, a perfect recall
-(all the true positives were caught) however only a 18% f1 score. 
-
-Cohens Kappa provides a universal 0 score because it adjusts the acuracy by the probability of random
-Cohen's kappa provides a universal 0 score because it adjusts the acuurcy by the probability of random
-agreement - and so as such provides probably the most 'reliable' evaluation of our classifier. 
+The results and interpretation thereof are discussed below, within the context of the classification section
 
 
-### Interpretation
-
-Is there anything we can learn from these results?
 
 ## Preprocessing
 
-
 ### Design Decisions
 
-- create_labels: this was crucial to implement as to label a tweet as viral or not based on our rewteet
-and like numbers. This was used pretty much in every stage of the pipeline
-- punctuation_remover: removes the punctuation
-Which kind of preprocessing steps did you implement? Why are they necessary
+Which kind of preprocessing steps did we implement? Why were they necessary
 and/or useful down the road?
 
-- create_labels: this was crucial to implement to give the tweet a label which divided it into being
- viral or not (based on our threshold of number of retweets and likes). This was used pretty much in every 
- stage of the pipeline.
-- punctuation_remover: removes the punctuation to allow easier processing later e.g. for nltk feature extraction 
-where punctuation would just get in the way.
->>>>>>> 5d961665d1d18c0e5ce0986fa209e7f9a4c22da9
-- split_data: vital as an evaluation scheme as a way to divide up the data into traning, test and 
-validation groups. This way one can check for under and overfitting if the training data has far different 
-evaluation metric scores to 'unseen' data in the test data or completely 'virgin' data in the validation
-set
-- tokenizer: which tokenizes the tweets into individual words, this can be used in feature extraction further
-down the pipeline.
+- create_labels: this was crucial to implement to give the tweet a 'viral' or 'not viral' label 
+  (based on our threshold of number of retweets and likes). This was used pretty much in every 
+  stage of the pipeline. We also created a 'viral count' that gave a continuous score of how viral a tweet was,  
+  rather than only a discrete boolean class. This was used in the plotting functions. 
+- punctuation_remover: removes the punctuation to allow easier processing later where punctuation would just get in the way.
+- split_data: was vital to divide up the data into training, test and validation groups. 
+  This way one could check for under and overfitting if the training data has vastly different 
+  evaluation metric scores between 'unseen' data in the test data or completely 'virgin' data in the validation set
+- tokenizer: which tokenized the tweets into individual words, this was used in feature extraction further
+  down the pipeline.
 
 
 ### Results
 
-A short example of your preprocessing:
+Here is a short example of our preprocessing:
 
 For example a sentence like 'Machine Learning is the best! I love it so much' would be preprocessed as follows: 
-1. create labels: if the likes + rewteets > 50 then it is labelled 'true' for being viral. Otherwise not it does not reach
-the threshold to be in the positive class and is labelled 'false'. This is saved in a new column in code.util as 'COLUMN_LABEL'.
-e.g. let's say our example sentence is viral. It gets the label = TRUE. This is also saved in data/preprocessing/labeled.csv
-which gets passed to the next stage:
-2. In general preprocessing, the punctuation_remover and tokenizer files are implemented such that any punctuation points are 
-replaced with an empty space " ". This is resaved in "COLUMN_TWEET". 
-e.g. "Machine Learning is the best I love it so much"
-Then in tokenize, the tweet is broken down into the individual words:
-So our sentence becomes e.g. "Machine" "Learning" "is" "the" and so forth. 
-3. In split_data as a final step, the data gets seperated into training, test and vailidation sets. 
+
+1. create labels: 
+    If the likes + retweets > 50 then it is labelled 'true' for being viral. Otherwise it is labelled 'false'. 
+    This is saved in a novel column in the dataframe in util.py as 'COLUMN_LABEL'.
+    e.g. let's say our example sentence is viral. It gets the label = TRUE. This is also stored in data/preprocessing/labeled.csv
+    which gets passed to the next stage:
+2. In general preprocessing:
+    The punctuation_remover any punctuation points are replaced with an empty space " ". This is stored in "COLUMN_PUNCTUATION". 
+    e.g. "Machine Learning is the best I love it so much"
+    Then in tokenize, the tweet is broken down into the individual words:
+    So our sentence becomes e.g. "Machine" "Learning" "is" "the" and so forth. If used, the input gets stored with the suffix
+    '_tokenised'
+3. In split_data:
+    As a final step, the data gets seperated into training, test and vailidation sets. 
+
 
 
 ## Feature Extraction
 
-Again, either structure among decision-result-interpretation or based on feature,
-up to you.
-
 ### Design Decisions
 
 Which features did you implement? What's their motivation and how are they computed?
-We implemented 8 features in total: 
+We created 9 features in total: 
 - sentiment.py
-        As motivation, our group hypothesized that more emotionally saturated tweets would become
-        more viral, as people respond more to sentiment extremes e.g. in clickbait thumbnails or 
-        sensational articles headlines. Using the nltk package vader sentiment intensity analyser, this feature takes a 
-        tweet as input and outputs a set of metrics - positive, negative, neutral and compound. 
+        Our group hypothesized that more emotionally saturated tweets would become
+        more viral, as people respond more to sentiment extremes. For example in clickbait thumbnails or 
+        sensational articles headlines. Inspiration: https://www.wired.com/2015/12/psychology-of-clickbait/
+        Using the nltk package vader sentiment intensity analyser, this feature 
+        outputs a set of metrics - positive, negative, neutral and compound. 
         I selected for compound only which is a normalisation between -1 (most extreme positive) 
         and +1 (most extreme positive).
-- names_places.py  **This is incredibly processing heavy - runtime warning*
-        This aims to count the number of NNPs (Proper Nouns) in each tweet, it implemented using the NER 
-        functions which are supplied in the nltk package. We were curious to see if tweets with more
-        words that refer to actual people or reference a place (that maybe you relate to) would connect with 
-        the audience more and therefore become more viral.
 - day_of_the_week
-        Here we hoped to see a correlation between the day of the week and viralness - such as more viral tweets 
-        seen over the weekend as people have more time away from work where they might be present on
-        the app. This feature is extracted from the date column and assigns numerical values for each day of the week. 
+        Here we hoped to see a correlation between the day of the week and viralnes. Namely, more viral tweets 
+        are over the weekend when people aren't working and might be present on the app.
+        This feature is extracted from the date column and assigns numerical values for each day of the week. 
 - hastags_num
-        Again, we hoped to see a correlation between number of hashtags and viralness, as research has shown
-        that for example in Instagram posts, making your post easily searchable through widely used hashtags, 
-        makes your post more discoverable and hopefully therefore more viral.  And as such, here the overall number of hashtags is 
-    	computed in order to check whether for example a high number of hashtags makes a tweet more likely to go viral or not.
+        Again, we hoped to see a correlation between number of hashtags and viralness. Research has shown
+        that for example in Instagram posts, contrary to belief, less hashtags is correlated to more popular posts. 
+        (https://mention.com/en/reports/instagram/hashtags/#3).  Since hashtags are so popular,
+        a post will most likely be obscured by the competition. So here the overall number of hashtags is computed 
+        in order to check if an indirectly proportional relationship exists. 
 - hastags_most_common
-        As an extrapolation of the previous feature, we were then curious to check if certain hastags were lent themselves
-        to being present in viral tweets. Are there certain topics that are particularly 'hot' in data science related tweets. 
-	This features first extracts the most common hashtags over the whole dataset and then checks for each tweet how many
+        As an follow-on of the previous feature, we were curious if certain hastags were more present in viral tweets. 
+        Are there certain topics that are particularly 'hot' in data science related tweets?
+    	This feature first extracts the most common hashtags over the whole dataset and then checks for each tweet how many
         of the top 50 hashtags were used.
 - tweet_frequency
         This feature returns the amount of times that a certain user has posted a tweet, it is implemented by using a 
@@ -147,51 +124,58 @@ We implemented 8 features in total:
         have a better chance at posting viral tweets, rather than someone with very few tweets that might
         not have the same following.
 - words_most_common
-        And finally, we wanted to see if viral tweets had an average lexicon that differed from non-viral 
+        We wanted to see if viral tweets had an average lexicon that differed from non-viral 
         tweets, and if so - what these were. This features first extracts the most common words over the whole dataset and 
     	then checks for each tweet how many of the top 50 words were used.
-    	
-        
-
-- char_length was implemented (a score of the length of the tweet) and bigrams was found to be not strictly necessary for our code. 
+- replies_num.py
+        This feature takes the tweet replies count column of the dataframe as a marker of interest. 
+        We predicted that a higher number of replies will correlate to a chance of viralness.
+- mention_num.py
+        Upon reading some literature on tweet viralness, we saw that the number of mentions in a tweet 
+        (a reference to another twitter account) could have a relationship to viralness. So like in hastags.num the 
+        number of mentions were computed as a predictor. 
+        (Inspiration: https://www.researchgate.net/publication/262166912_Analyzing_and_predicting_viral_tweets)
+- names_places.py  
+        This aims to count the number of NNPs (Proper Nouns) in each tweet, it implemented using the NER 
+        functions which are supplied in the nltk package. We were curious to see if tweets with more
+        words that refer to actual people or reference a place (that maybe you relate to) would connect with 
+        the audience more and therefore become more viral.
+        This feature was incredibly processing heavy - so we opted to leave it out.
+- char_length.py
+        was already implemented (a score of the length of the tweet) and was a simple, although quite useful 
+        feature and so was kept in our project.
 
 ### Results
 
-Feature value distributions can be found in the plot_images and feature_plots folder.
+Please see corresponding files 'feature_plots' and 'plot_images' to view the code and .png files respectively, 
+that visualise how the features divided the viral/non-viral tweets and their spread.
 
-Please see corresponding files 'feature plots' and 'plot images' to view the code and .png files respectively. 
-
-The features with the most significant division between viral and non-viral, is the day of the week that 
-the tweet was posted. From the plot one can see that posting on weekends makes a tweet much more likely to be viral.
 
 ### Interpretation
 
-Can we already guess which features may be more useful than others?
-- The number of tweet replies and tweet frequency, day of the week were hypothesized by our group to be most useful.
+We guessed that the number of tweet replies, tweet frequency, and the hashtags count may be more useful than others. 
+This was partly confirmed below.
+
+
 
 ## Dimensionality Reduction
 
-If you didn't use any because you have only few features, just state that here.
-In that case, you can nevertheless apply some dimensionality reduction in order
-to analyze how helpful the individual features are during classification
-
 ### Design Decisions
 
-Which dimensionality reduction technique(s) did you pick and why?
+Which dimensionality reduction technique(s) did we pick and why?
 
-Due to not having all that many features  - dimensionality reduction techniques in the form
-of something like PCA seemed unnecessary. However we found using the mutual information method was useful to 
-analyse which features were most useful. As expected, the number of tweet replies and tweet frequency both
-had a relatively high statistical dependence to the target variable. 
-
-Also to be noted, in the classification section, we also implemented a random forest classifer
-which in its own terms in a method of dimensionality reduction in unto itself. 
+Due to not having all that many features, dimensionality reduction techniques like PCA seemed unnecessary. 
+However we found using the mutual information method was noteworthy to analyse which features were most useful. 
 
 ### Results
 
-Which features were selected / created? Do you have any scores to report?
-Replies_num had a mutual information score of 0.064, tweet frequency of 0.037 and char_length 
-was also relatively useful.
+Which features were selected / created? Do we have any scores to report?
+
+The three most useful features were as expected, replies_num with a mutual information score of 0.064, 
+tweet frequency of 0.037 and unexpectantly char_length with a score of 0.012.
+We decided to implement all of our features (except names_places), as they were not terribly computationally heavy and 
+did improve the metrics slightly, so we decided there was no harm in keeping them despite their relatively
+low mutual information.
 
 ### Interpretation
 
@@ -204,52 +188,117 @@ to write a comment, the more likely it is (we hypothesised) that you would have 
 and retweets. Similarly, we expected that the number of tweets you has posted, the more of a following 
 you would have, in comparison to someone who maybe tweeted only randomly rarely. 
 
+
+
 ## Classification
 
 ### Design Decisions
 
-Which classifier(s) did you use? Which hyperparameter(s) (with their respective
-candidate values) did you look at? What were your reasons for this?
+Which classifier(s) did we use? Which hyperparameter(s) (with their respective
+candidate values) did we look at? What were our reasons for this?
 
-- We continued using the already implemented K-nearest neighbour classifier, (and as mentioned 
-above, the baseline metrics: majority classifier and label frequency classifier). After analysing the 
-evaluation metrics from k = 1:10, we found that a k of as low as 2 produced the best results and so set
-that as our candidate value.
-- As well as we implemented a random forest classifier with a specified number of trees set to 50 as
-this was found to produce results evaluation metric scores that leveled out and did not improve the 
+- We continued using the already implemented K-nearest neighbour classifier. After analysing the 
+hyperparamters from K = 1:10, we found that a K neighbours of as low as 2 produced reasonable results 
+in the training data, but K = 5 had the best Cohen's kappa and F1 scores and so set that as our candidate value.
+- We also implemented a random forest classifier with a specified number of trees set to 50 as
+this was found to produce evaluation metric scores that leveled out and did not improve the 
 classification by enough to necessate the computation required.
 - We also implemented the Naive Bayes classifier, but found this had worse metrics than the KNN and 
 random forest classifiers, so we opted to use the others instead.
 
-
 ### Results
 
-The big finale begins: What are the evaluation results you obtained with your
-classifiers in the different setups? Do you overfit or underfit? For the best
-selected setup: How well does it generalize to the test set?
+The big finale begins: What are the evaluation results we obtained with our
+classifiers in the different setups? Do they overfit or underfit?
 
-- We are most disappointed to acknowledge that our evaluation metrics showed a less
-than stellar classification. The very best scores we managed were around an accuracy of 
-0.922 and Cohen_kappa of 0.339 and an f1_score of 0.370 for the validation set and much
-the same for the test results. 
+The very best scores we obtained for the training data were from the random forest classifier (50 trees):
+accuracy: 0.9544020373437905
+cohen_kappa: 0.6699552036549987
+f1_score: 0.6931098555231126
+
+Below a print out where you can see the improvement/worsening of the metrics as the hyperparameters were adjusted:
+
+scripts/classification.sh
+  training set
+    2 nearest neighbor classifier
+    accuracy: 0.9332172678408438
+    cohen_kappa: 0.44166829225114657
+    f1_score: 0.4694032857334706
+    
+    5 nearest neighbor classifier
+    accuracy: 0.9302367510676899
+    cohen_kappa: 0.46881711827834527
+    f1_score: 0.5024911603985857
+    
+    7 nearest neighbor classifier
+    accuracy: 0.9288056522767993
+    cohen_kappa: 0.4444170698348935
+    f1_score: 0.47772174919401506
+    
+    10 nearest neighbor classifier
+    accuracy: 0.9276337288574874
+    cohen_kappa: 0.39445197680675737
+    f1_score: 0.42444882595447214
+    
+    30 random forest classifier
+    accuracy: 0.9540020057920061
+    cohen_kappa: 0.6676240672543705
+    f1_score: 0.691015063204905
+    
+    50 random forest classifier
+    accuracy: 0.9544471113214563
+    cohen_kappa: 0.6704789276896022
+    f1_score: 0.6936223426427679
+    
+    100 random forest classifier
+    accuracy: 0.954683749704202
+    cohen_kappa: 0.6714254435739221
+    f1_score: 0.6944032827994984
+    
+    guassian naive bayes classifier
+    accuracy: 0.9219938474020486
+    cohen_kappa: 0.3078018159984025
+    f1_score: 0.3354931605471562 
+  
+Unfortunately the random forest seems to be overfitting, as the metrics are somewhat worse in 
+the validation set
+  validation set
+    accuracy: 0.9223826104594165
+    cohen_kappa: 0.30896697118777483
+    f1_score: 0.3362243422954611
+
+For the best selected setup: How well does it generalize to the test set?
 
 
 ### Interpretation
 
-Which hyperparameter settings are how important for the results?
-How good are we? Can this be used in practice or are we still too bad?
+Is there anything we learned from these results?
+
+We are excited to report that our training and validation results are an improvement on our baselines
+ 
+They are unfortuately not substantial results, with only moderate agreement for Cohen's kappa for example on our 
+training set, and fair results on the validation set. However, with more time and metadata 
+(like number of followers we anticipate would have been INCREDIBLY telling), we are convinced that 
+we could improve on this score and could easily be used in practice. At this point in time probably not. 
+
+Which hyperparameter settings are important for the results?
+
+- the number of trees in the random forest classifier and the number of neighbours for the KNN
+classifier had highly variable results when altered. This is good to know for the future. 
+
+
 Anything else we may have learned?
 
 We have learned many skills: foremost being machine learning in practice requires
 far more than only coding skills, making a project with so many subfiles and steps 
-in the pipeline also requires incredinbly organised version control and diciplined 
+in the pipeline also requires organised version control and diciplined 
 branching, coding and merging. As a group we struggled a lot with the set up, some 
 members opting for working on windows, some on the VM and we constantly had to 
 troubleshoot along the way. All these lessons mean we leave this seminar maybe not
 with the best code and the strongest results but we feel a lot more confident 
-(or maybe respectful) using Git and Trello to co-ordinate our efforts. But also 
-respecting that set-up, trouble-shooting, daily scrum meetings, and figuring out
-some-one elses code probably will take up 90% of your time and only a fraction of the 10% 
+using Git and Trello to co-ordinate our efforts. But also 
+respecting that set-up, trouble-shooting, daily scrum meetings, and figuring out another
+persons codebase probably will take up 90% of your time and only a fraction of the 10% 
 coding gets spent on implementing super cool, trendy and impressive machine learning algorithms.
 So summarised in one sentence: What's the purpose of having the most sophisticated ML classifier
 if you can't even get the code to run? In theory it sounds great, in practise - you got to
