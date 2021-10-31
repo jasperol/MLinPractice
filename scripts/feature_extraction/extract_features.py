@@ -33,7 +33,6 @@ from scripts.feature_extraction.mentions_num import MentionsCounts
 from scripts.feature_extraction.replies_num import RepliesCount
 from scripts.feature_extraction.feature_collector import FeatureCollector
 from scripts.util import COLUMN_TWEET, COLUMN_LABEL, COLUMN_DATE, COLUMN_TAGS, COLUMN_USERS, COLUMN_REPLIES, COLUMN_MENTIONS
-#from scripts.util import COLUMN_RETWEETS, COLUMN_LIKES
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Feature Extraction")
@@ -116,8 +115,6 @@ else:    # need to create FeatureCollector manually
 # apply the given FeatureCollector on the current data set
 # maps the pandas DataFrame to an numpy array
 feature_array = feature_collector.transform(df)
-
-print(sum(feature_array[:,-1]))
 
 # get label array
 label_array = np.array(df[COLUMN_LABEL])

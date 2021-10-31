@@ -8,7 +8,6 @@ Created on Sat Oct 30 12:23:32 2021
 @author: sascholle
 """
 
-
 import numpy as np
 import sys
 sys.path.append('./scripts/')

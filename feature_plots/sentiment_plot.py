@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Visualisation of the sentiment feature results
+
 Created on Mon Oct 18 21:33:57 2021
 
 @author: sascholle
@@ -14,7 +16,7 @@ import numpy as np
 with open("data/feature_extraction/training.pickle", "rb") as f_in:
     data = pickle.load(f_in)
 
-# ensure the feature.extraction.sh file runs the training set using only the --sentiment command and no other features
+# NB! ensure the feature.extraction.sh file runs the training set using only the --sentiment command and no other features
 features = data["features"]
 labels = data["labels"]
 

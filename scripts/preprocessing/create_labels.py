@@ -11,7 +11,7 @@ Created on Tue Sep 28 15:55:44 2021
 
 import os, argparse, csv
 import pandas as pd
-from scripts.util import COLUMN_LIKES, COLUMN_RETWEETS, COLUMN_LABEL
+from scripts.util import COLUMN_LIKES, COLUMN_RETWEETS, COLUMN_LABEL, COLUMN_VIRAL_COUNT
 
 # setting up CLI
 parser = argparse.ArgumentParser(description = "Creation of Labels")
@@ -20,6 +20,8 @@ parser.add_argument("output_file", help = "path to the output csv file")
 parser.add_argument("-l", '--likes_weight', type = int, help = "weight of likes", default = 1)
 parser.add_argument("-r", '--retweet_weight', type = int, help = "weight of retweets", default = 1)
 parser.add_argument("-t", '--threshold', type = int, help = "threshold to surpass for positive class", default = 50)
+#parser.add_argument("-c", '--viral_count', type = int, help = "a score of how viral the tweet was")
+
 args = parser.parse_args()
 
 # get all csv files in data_directory
@@ -35,6 +37,8 @@ df = pd.concat(dfs)
 
 # compute new column "label" based on likes and retweets
 df[COLUMN_LABEL] = (args.likes_weight * df[COLUMN_LIKES] + args.retweet_weight * df[COLUMN_RETWEETS]) > args.threshold
+df[COLUMN_VIRAL_COUNT] = (args.likes_weight * df[COLUMN_LIKES] + args.retweet_weight * df[COLUMN_RETWEETS])
+
 
 # print statistics
 print("Number of tweets: {0}".format(len(df)))

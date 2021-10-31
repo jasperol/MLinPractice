@@ -1,21 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Creates a histopgram plot and prints out the training.pickle file as a check of functionality
-of our feature_extraction code, before going to the next step in the pipeline
+Creates a histogram plot and prints out the training.pickle file as a check of functionality
+of our feature_extraction code.
 
 Created on Mon Oct 18 21:33:57 2021
 
 @author: sascholle
-
-
 """
 
-# plotting with matplotlib to see histograms of all the feature_labels
 import pickle
 from matplotlib import pyplot as plt
 import pandas as pd
 
+# plotting with matplotlib to see histograms of all the feature_labels
 with open("data/feature_extraction/training.pickle", "rb") as f_in:
     data = pickle.load(f_in)
 
