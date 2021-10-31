@@ -36,11 +36,6 @@ most_common_tags = freq.most_common(20)
 
 # plotting the 20 most common tags and their counts
 x = most_common_tags[0]
-df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
-top_20 = HashtagsMostCommon(df)[1]
-top_tags = pd.DataFrame(top_20)
-# plotting of most common hashtags
-x = top_tags[0]
 fig,ax = plt.subplots(1,1)
 ax.set_xlabel('top 20 tags')
 ax.set_ylabel('occurences')
