@@ -12,3 +12,5 @@ echo "  validation set"
 python -m scripts.classification.run_classifier data/dimensionality_reduction/validation.pickle -i data/classification/classifier.pickle --f1_score --accuracy --kappa
 
 # don't touch the test set, yet, because that would ruin the final generalization experiment!
+echo "  test set"
+python -m scripts.classification.run_classifier data/dimensionality_reduction/validation.pickle -i data/classification/classifier.pickle --f1_score --accuracy --kappa
