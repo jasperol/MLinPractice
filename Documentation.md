@@ -1,25 +1,23 @@
-# Documentation Example
+# Documentation 
 
-Some introductory sentence(s). Data set and task are relatively fixed, so 
-probably you don't have much to say about them (unless you modifed them).
-If you haven't changed the application much, there's also not much to say about
-that.
-The following structure thus only covers preprocessing, feature extraction,
-dimensionality reduction, classification, and evaluation.
+This project aims to predict if a tweet will become viral or not. In order to 
+answer this question we have implemented some features that will extract some information from the dataset.
+With these features we hope to train a classifier to determine if a tweet will be viral or not.
+
 
 ## Evaluation
 
 ### Design Decisions
 
-Which evaluation metrics did you use and why? 
-
 We used the included accuracy and cohens kappa metrics, otherwise we also used an f1_score metric 
 to get a combination of precision (how many positive classified tweets are actaully positive)
 and recall (how many true positives were caught).
 
-Which baselines did you use and why?
+We used the following baselines:
 -majority vote classifier
 -label frequency classifier
+By comparing ourselves to these very uninformative classifiers we make sure to view
+any correct classifications in context.
 
 
 
@@ -31,7 +29,7 @@ f1 score will all be 0 or NaN.
 'Always true' provides the opposite of course with 10% accuracy and precision, a perfect recall
 (all the true positives were caught) however only a 18% f1 score. 
 
-Cohens Kappa provides a universal 0 score because it adjusts the acuurcy by the probability of random
+Cohens Kappa provides a universal 0 score because it adjusts the acuracy by the probability of random
 agreement - and so as such provides probably the most 'reliable' evaluation of our classifier. 
 
 
@@ -44,9 +42,6 @@ Is there anything we can learn from these results?
 
 ### Design Decisions
 
-Which kind of preprocessing steps did you implement? Why are they necessary
-and/or useful down the road?
-
 - create_labels: this was crucial to implement as to label a tweet as viral or not based on our rewteet
 and like numbers. This was used pretty much in every stage of the pipeline
 - punctuation_remover: removes the punctuation
@@ -57,10 +52,9 @@ set
 - tokenizer: this can be used in feature extraction 
 
 
-
 ### Results
 
-Maybe show a short example what your preprocessing does.
+A short example of your preprocessing:
 
 For example a sentence like 'Machine Learning is the best! I love it so much' would be preprocessed as follows: 
 1. create labels: if the likes + rewteets > 50 then it is labelled 'true' for being viral. Otherwise not it does not reach

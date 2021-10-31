@@ -9,7 +9,6 @@ Created on Wed Oct 13 13:15:45 2021
 import unittest
 import pandas as pd
 import csv
-import numpy as np
 from code.feature_extraction.names_places import NamesPlacesFeature
 
 class NamesPlacesFeatureTest(unittest.TestCase):

@@ -10,14 +10,12 @@ import sys
 sys.path.append('./scripts/')
 from scripts.feature_extraction.feature_extractor import FeatureExtractor
 import numpy as np
-import pandas as pd
 
 class TweetFrequency(FeatureExtractor):
     
     
     def __init__(self, input_column):
         super().__init__([input_column], "{0}_tweet_frequency".format(input_column))
-        self.data_f = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
         
         
