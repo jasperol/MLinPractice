@@ -318,3 +318,15 @@ coding gets spent on implementing super cool, trendy and impressive machine lear
 So summarised in one sentence: What's the purpose of having the most sophisticated ML classifier
 if you can't even get the code to run? In theory it sounds great, in practise - you got to
 keep your workspace tidy. 
+
+
+/// ADDITION: comment on application.py
+
+We tried to run the application however, it did not allow us to extract the features from the input that
+we trained the classifier on. The error that we got when running the application.sh file was that
+the shape of the input dataframe did not match the shape of the trained feature extraction dataframe.
+This will be due to the fact that we added 'date' & 'username' as input since some of our features rely on
+those data points. In the end, there was not enough time for us to figure out how to solve this issue.
+Despite the deadline, we will work on this problem as it would be quite nice to try and deploy the application
+to predict the virality of tweets.
+
