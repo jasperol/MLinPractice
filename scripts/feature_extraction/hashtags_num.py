@@ -22,18 +22,22 @@ class HashtagsCounts(FeatureExtractor):
         
     def _get_values(self, inputs):
         
+        # pre-processing
         hasch = inputs[0]
         counts = []
         hashtags = []
         
+        # extracting the number of hashtags from the length of the hashtag list
         for h in hasch:
             
+            # if string contains hashtags
             if len(h) > 2:
                 tags = h.split("'")
                 words = [t for t in tags if t.isalnum()]
                 counts.append(len(words))
                 hashtags.append(words)
             
+            # else is empty string
             else:
                 counts.append(0)
         

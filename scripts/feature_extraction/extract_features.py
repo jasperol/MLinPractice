@@ -11,17 +11,7 @@ Created on Wed Sep 29 11:00:24 2021
 import argparse, csv, pickle, sys
 import pandas as pd
 import numpy as np
-
 sys.path.append('./scripts/')
-#sys.path.append('./scripts/feature_extraction/names_places')
-#sys.path.append('./scripts/feature_extraction/sentiment')
-#sys.path.append('./scripts/feature_extraction/tweet_frequency')
-#sys.path.append('./scripts/feature_extraction/day_of_the_week')
-#sys.path.append('./scripts/feature_extraction/hashtags_most_common')
-#sys.path.append('./scripts/feature_extraction/hashtags_num')
-#sys.path.append('./scripts/feature_extraction/words_most_common')
-#sys.path.append('./scripts/feature_extraction/feature_collector')
-
 from scripts.feature_extraction.character_length import CharacterLength
 from scripts.feature_extraction.sentiment import Sentiment
 from scripts.feature_extraction.tweet_frequency import TweetFrequency
@@ -73,10 +63,6 @@ else:    # need to create FeatureCollector manually
     if args.sentiment:
         # sentiment score of tweet between -1 to 1
         features.append(Sentiment(COLUMN_TWEET))
-        
-    #if args.names_places:
-        # amount of names and places per tweet
-        #features.append(NamesPlacesFeature(COLUMN_TWEET))
         
     if args.tweet_frequency:
         # how many tweets posted by one person

@@ -75,7 +75,6 @@ class DayOfTheWeek(FeatureExtractor):
 
         # fit and transform encoder on data
         onehot_week = np.array(encoder.fit_transform(days_new))
-        
         result = onehot_week
         
         return result    

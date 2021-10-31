@@ -20,8 +20,7 @@ parser.add_argument("output_file", help = "path to the output csv file")
 parser.add_argument("-l", '--likes_weight', type = int, help = "weight of likes", default = 1)
 parser.add_argument("-r", '--retweet_weight', type = int, help = "weight of retweets", default = 1)
 parser.add_argument("-t", '--threshold', type = int, help = "threshold to surpass for positive class", default = 50)
-#parser.add_argument("-c", '--viral_count', type = int, help = "a score of how viral the tweet was")
-
+parser.add_argument("-c", '--viral_count', type = int, help = "a score of how viral the tweet was")
 args = parser.parse_args()
 
 # get all csv files in data_directory
@@ -37,8 +36,8 @@ df = pd.concat(dfs)
 
 # compute new column "label" based on likes and retweets
 df[COLUMN_LABEL] = (args.likes_weight * df[COLUMN_LIKES] + args.retweet_weight * df[COLUMN_RETWEETS]) > args.threshold
+# compute new column "viral count" based on continuos score of likes and retweets
 df[COLUMN_VIRAL_COUNT] = (args.likes_weight * df[COLUMN_LIKES] + args.retweet_weight * df[COLUMN_RETWEETS])
-
 
 # print statistics
 print("Number of tweets: {0}".format(len(df)))

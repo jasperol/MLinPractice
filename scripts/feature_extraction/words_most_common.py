@@ -15,7 +15,7 @@ import sys
 sys.path.append('./scripts/')
 from scripts.feature_extraction.feature_extractor import FeatureExtractor
 
-# class for extracting the most common hashtags
+# class for extracting the most common words
 class WordsMostCommon(FeatureExtractor):
     
     # constructor
@@ -32,8 +32,6 @@ class WordsMostCommon(FeatureExtractor):
         
         # pre-processing
         tweets = inputs[0]
-        #viral_tweets = inputs.loc[(tweets_and_labels.label == True)]
-        #tweets_column = viral_tweets["tweet_tokenized"]
         
         # concatenate all tweets into one text
         text = ' '.join(tweet for tweet in tweets)

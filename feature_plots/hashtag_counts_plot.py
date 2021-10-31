@@ -8,26 +8,25 @@ Created on Thu Oct 21 15:23:47 2021
 """
 
 import pandas as pd
-import numpy as np
-import csv
+import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # load the data
-df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
+with open("data/feature_extraction/training.pickle", "rb") as f_in:
+    data = pickle.load(f_in)
 
 # store data
-tags_and_labels = df[["hashtags", "label"]]
+tags_and_labels = data[["hashtags", "label"]]
 
 # virals only
-virals = df.loc[(tags_and_labels.label == True)]
-non_virals = df.loc[(tags_and_labels.label == False)]
+virals = data.loc[(tags_and_labels.label == True)]
+non_virals = data.loc[(tags_and_labels.label == False)]
 
 v_tags = virals["hashtags"]
 non_v_tags = non_virals["hashtags"]
 
 # count hashtags
-
 # for viral tweets
 v_counts = []
 
@@ -49,16 +48,6 @@ for n in non_v_tags:
         non_v_counts.append(len(n_words))
     else:
         non_v_counts.append(0)
-
-# compute means 
-means = [np.mean(v_counts), np.mean(non_v_counts)]
-
-# plotting means
-bars = ('viral tweets', 'non-viral tweets')
-x_pos = np.arange(len(bars))
-plt.bar(x_pos, means)
-plt.xticks(x_pos, bars)
-plt.show()
 
 # plotting distribution
 df_virals = pd.DataFrame(v_counts)

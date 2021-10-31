@@ -9,21 +9,35 @@ Created on Thu Oct 21 15:23:47 2021
 
 import pandas as pd
 import csv
+import nltk
+import itertools
 import matplotlib.pyplot as plt
-from scripts.feature_extraction.hashtags_most_common import HashtagsMostCommon
 
 # load the data
-df = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
+data = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
-top_20 = HashtagsMostCommon(df)[1]
+# store data
+hashtags = data["hashtags"]
+haschis = []
 
-top_tags = pd.DataFrame(top_20)
+# extract hashtags
+for h in hashtags:
+    if len(h) > 2:
+        tags = h.split("'")
+        words = [t for t in tags if t.isalnum()]
+        haschis.append(words)
+     
+# combine tags in a flat list
+flat_hasch = list(itertools.chain(*haschis))
 
-# visualisation
-x = top_tags[0]
+# extract most common tags
+freq = nltk.FreqDist(flat_hasch)
+most_common_tags = freq.most_common(20)
 
+# plotting the 20 most common tags and their counts
+x = most_common_tags[0]
 fig,ax = plt.subplots(1,1)
 ax.set_xlabel('top 20 tags')
 ax.set_ylabel('occurences')
 plt.xticks(rotation=90)
-plt.plot(x, top_tags[1])
+plt.plot(x, most_common_tags[1])
