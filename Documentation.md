@@ -116,8 +116,8 @@ We implemented 8 features in total:
 - hastags_num
         Again, we hoped to see a correlation between number of hashtags and viralness, as research has shown
         that for example in Instagram posts, making your post easily searchable through widely used hashtags, 
-        makes your post more discoverable and hopefully therefore more viral.  Here the overall number of hashtags is 
-	computed in order to check whether for example a high number of hashtags makes a tweet more likely to go viral or not.
+        makes your post more discoverable and hopefully therefore more viral.  And as such, here the overall number of hashtags is 
+    	computed in order to check whether for example a high number of hashtags makes a tweet more likely to go viral or not.
 - hastags_most_common
         As an extrapolation of the previous feature, we were then curious to check if certain hastags were lent themselves
         to being present in viral tweets. Are there certain topics that are particularly 'hot' in data science related tweets. 
@@ -131,7 +131,8 @@ We implemented 8 features in total:
 - words_most_common
         And finally, we wanted to see if viral tweets had an average lexicon that differed from non-viral 
         tweets, and if so - what these were. This features first extracts the most common words over the whole dataset and 
-	then checks for each tweet how many of the top 50 words were used.
+    	then checks for each tweet how many of the top 50 words were used.
+    	
         
 
 - char_length was implemented (a score of the length of the tweet) and bigrams was found to be not strictly necessary for our code. 
@@ -148,7 +149,7 @@ the tweet was posted. From the plot one can see that posting on weekends makes a
 ### Interpretation
 
 Can we already guess which features may be more useful than others?
-- Tweet frequency, day of the week and sentiment analysis were hypothesized by our group to be more useful.
+- The number of tweet replies and tweet frequency, day of the week were hypothesized by our group to be most useful.
 
 ## Dimensionality Reduction
 
@@ -156,27 +157,34 @@ If you didn't use any because you have only few features, just state that here.
 In that case, you can nevertheless apply some dimensionality reduction in order
 to analyze how helpful the individual features are during classification
 
-Due to not having all that many features  - dimensionality reduction seems to be unnecessary. 
-However we ran the mutual information dimensionality reduction and the results were:
-***
-We also implemened PCA through sklearn and the results were: 
-***
-
-Also to be noted, in the classification section, we also implemented a random forest classifer
-which in its own terms in a method of dimensionality reduction in unto itself. 
-
 ### Design Decisions
 
 Which dimensionality reduction technique(s) did you pick and why?
 
+Due to not having all that many features  - dimensionality reduction techniques in the form
+of something like PCA seemed unnecessary. However we found using the mutual information method was useful to 
+analyse which features were most useful. As expected, the number of tweet replies and tweet frequency both
+had a relatively high statistical dependence to the target variable. 
+
+Also to be noted, in the classification section, we also implemented a random forest classifer
+which in its own terms in a method of dimensionality reduction in unto itself. 
+
 ### Results
 
 Which features were selected / created? Do you have any scores to report?
+Replies_num had a mutual information score of 0.064, tweet frequency of 0.037 and char_length 
+was also relatively useful.
 
 ### Interpretation
 
 Can we somehow make sense of the dimensionality reduction results?
 Which features are the most important ones and why may that be the case?
+
+It would make sense that the number of replies on a tweet indicates how viral a tweet is, by virtue of it
+showing user-activity. The higher the number of people are that see your tweet and take the time 
+to write a comment, the more likely it is (we hypothesised) that you would have a high number of likes
+and retweets. Similarly, we expected that the number of tweets you has posted, the more of a following 
+you would have, in comparison to someone who maybe tweeted only randomly rarely. 
 
 ## Classification
 
@@ -185,12 +193,15 @@ Which features are the most important ones and why may that be the case?
 Which classifier(s) did you use? Which hyperparameter(s) (with their respective
 candidate values) did you look at? What were your reasons for this?
 
-- We continued using the already implemented K-nearest neighbour classifier, majority classifier, 
-and label frequency classifier
-- As well as implemented a random forest classifier with a specified number of trees set to 100 as
-this was found to produce signifiantly accurate results before levelling out and not improving the 
+- We continued using the already implemented K-nearest neighbour classifier, (and as mentioned 
+above, the baseline metrics: majority classifier and label frequency classifier). After analysing the 
+evaluation metrics from k = 1:10, we found that a k of as low as 2 produced the best results and so set
+that as our candidate value.
+- As well as we implemented a random forest classifier with a specified number of trees set to 50 as
+this was found to produce results evaluation metric scores that leveled out and did not improve the 
 classification by enough to necessate the computation required.
-- Other ideas: Naive Bayes or SVM
+- We also implemented the Naive Bayes classifier, but found this had worse metrics than the KNN and 
+random forest classifiers, so we opted to use the others instead.
 
 
 ### Results
@@ -199,7 +210,11 @@ The big finale begins: What are the evaluation results you obtained with your
 classifiers in the different setups? Do you overfit or underfit? For the best
 selected setup: How well does it generalize to the test set?
 
-- Unfortunately nothing impressive here... yeeet 
+- We are most disappointed to acknowledge that our evaluation metrics showed a less
+than stellar classification. The very best scores we managed were around an accuracy of 
+0.922 and Cohen_kappa of 0.339 and an f1_score of 0.370 for the validation set and much
+the same for the test results. 
+
 
 ### Interpretation
 
