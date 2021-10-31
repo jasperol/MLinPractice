@@ -10,11 +10,8 @@ import sys
 sys.path.append('./scripts/')
 from scripts.feature_extraction.feature_extractor import FeatureExtractor
 import numpy as np
-<<<<<<< HEAD
-=======
 import pandas as pd
 import csv
->>>>>>> 5d961665d1d18c0e5ce0986fa209e7f9a4c22da9
 
 class TweetFrequency(FeatureExtractor):
     
@@ -44,7 +41,6 @@ class TweetFrequency(FeatureExtractor):
         # transform shape 
         cor_shape = np.array(freq_list)
         cor_shape = cor_shape.reshape(-1, 1)
-        #print(cor_shape)
         return cor_shape
     
     
