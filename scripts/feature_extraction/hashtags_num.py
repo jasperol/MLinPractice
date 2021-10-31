@@ -18,7 +18,7 @@ class HashtagsCounts(FeatureExtractor):
     # constructor
     def __init__(self, input_column):
         # access superclass of all features
-        super().__init__([input_column], "{0}_hashtags_num".format(input_column))
+        super().__init__([input_column], "{0}_num".format(input_column))
         
     def _get_values(self, inputs):
         

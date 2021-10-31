@@ -1,9 +1,23 @@
-# Documentation Example
+# Documentation 
+
+This project aims to predict if a tweet will become viral or not. In order to 
+answer this question we have implemented some features that will extract some information from the dataset.
+With these features we hope to train a classifier to determine if a tweet will be viral or not.
+
 
 ## Evaluation
 
 ### Design Decisions
 
+We used the included accuracy and cohens kappa metrics, otherwise we also used an f1_score metric 
+to get a combination of precision (how many positive classified tweets are actaully positive)
+and recall (how many true positives were caught).
+
+We used the following baselines:
+-majority vote classifier
+-label frequency classifier
+By comparing ourselves to these very uninformative classifiers we make sure to view
+any correct classifications in context.
 Which evaluation metrics did you use and why? 
 
 We used the included accuracy and Cohen's kappa metrics, accuracy simply because it is one of the most
@@ -41,6 +55,7 @@ Therefore the accuracy is 90%, however the F1 score will all be 0 or NaN.
 'Always true' provides the opposite of course with 10% accuracy and precision, a perfect recall
 (all the true positives were caught) however only a 18% f1 score. 
 
+Cohens Kappa provides a universal 0 score because it adjusts the acuracy by the probability of random
 Cohen's kappa provides a universal 0 score because it adjusts the acuurcy by the probability of random
 agreement - and so as such provides probably the most 'reliable' evaluation of our classifier. 
 
@@ -54,6 +69,9 @@ Is there anything we can learn from these results?
 
 ### Design Decisions
 
+- create_labels: this was crucial to implement as to label a tweet as viral or not based on our rewteet
+and like numbers. This was used pretty much in every stage of the pipeline
+- punctuation_remover: removes the punctuation
 Which kind of preprocessing steps did you implement? Why are they necessary
 and/or useful down the road?
 
@@ -62,6 +80,7 @@ and/or useful down the road?
  stage of the pipeline.
 - punctuation_remover: removes the punctuation to allow easier processing later e.g. for nltk feature extraction 
 where punctuation would just get in the way.
+>>>>>>> 5d961665d1d18c0e5ce0986fa209e7f9a4c22da9
 - split_data: vital as an evaluation scheme as a way to divide up the data into traning, test and 
 validation groups. This way one can check for under and overfitting if the training data has far different 
 evaluation metric scores to 'unseen' data in the test data or completely 'virgin' data in the validation
@@ -70,10 +89,9 @@ set
 down the pipeline.
 
 
-
 ### Results
 
-Maybe show a short example what your preprocessing does.
+A short example of your preprocessing:
 
 For example a sentence like 'Machine Learning is the best! I love it so much' would be preprocessed as follows: 
 1. create labels: if the likes + rewteets > 50 then it is labelled 'true' for being viral. Otherwise not it does not reach

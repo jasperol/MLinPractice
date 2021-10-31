@@ -30,6 +30,7 @@ class NamesPlacesFeatureTest(unittest.TestCase):
         expected_value = 0.5
 
         result = self.names_places_feature._get_values(input_text)
+        print(result[:10])
         self.assertEqual(result[2], expected_value)
         
     

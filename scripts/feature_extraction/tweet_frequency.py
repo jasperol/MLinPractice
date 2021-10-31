@@ -18,7 +18,6 @@ class TweetFrequency(FeatureExtractor):
     
     def __init__(self, input_column):
         super().__init__([input_column], "{0}_tweet_frequency".format(input_column))
-        self.data_f = pd.read_csv("data/preprocessing/preprocessed.csv", quoting = csv.QUOTE_NONNUMERIC, lineterminator = "\n")
 
         
         
@@ -42,7 +41,6 @@ class TweetFrequency(FeatureExtractor):
         # transform shape 
         cor_shape = np.array(freq_list)
         cor_shape = cor_shape.reshape(-1, 1)
-        #print(cor_shape)
         return cor_shape
     
     

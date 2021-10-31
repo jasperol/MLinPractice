@@ -21,7 +21,7 @@ class HashtagsMostCommon(FeatureExtractor):
     # constructor
     def __init__(self, input_column):
         # access superclass of all features
-        super().__init__([input_column], "{0}_hashtags_most_common".format(input_column))
+        super().__init__([input_column], "{0}_most_common".format(input_column))
         
     def _get_values(self, inputs):
         
